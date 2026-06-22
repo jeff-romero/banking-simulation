@@ -1,0 +1,23 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1vw;
+}
+
+#root-content {
+    display: flex;
+    flex-direction: column;
+    background-color: oklch(46.147% 0.18014 281.246);
+    height: 100dvh;
+    justify-content: center;
+    padding: 2vw;
+    align-items: center;
+}
