@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#frame {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75vw;
+    padding: 2vw;
+    background-color: grey;
+    align-items: center;
+    width: fit-content;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    /* gap: 0.5vw; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    overflow-wrap: break-word;
+}
+
+.errors {
+    color: oklch(43.078% 0.15959 27.201);
+}
+
+@media screen and (min-width: 900px) {
+    .inputCaption {
+        width: 5vw;
+        /* background-color: red; */
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .inputCaption {
+        width: 10vw;
+        /* background-color: red; */
+    }
+}
+
+input {
+    /* overflow: scroll; */
+    /* width: 10vw; */
+}
+
+#logIn {
+    width: fit-content;
+    align-self: center;
+}
