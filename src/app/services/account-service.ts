@@ -13,8 +13,7 @@ const ACCOUNT_KEY = 'Account';
   providedIn: 'root',
 })
 export class AccountService {
-  // this.getAccountFromLocalStorage()
-  private accountSubject = new BehaviorSubject<Account>(new Account());
+  private accountSubject = new BehaviorSubject<Account>(this.getAccountFromLocalStorage());
   public accountObservable: Observable<Account>;
 
   constructor(private http:HttpClient, private toastrService: ToastrService) {
@@ -25,7 +24,7 @@ export class AccountService {
     return this.http.post<Account>(ACCOUNT_LOGIN_URL, accountLogin).pipe(
       tap({
         next: (account: any) => {
-          // this.setAccountToLocalStorage(account);
+          this.setAccountToLocalStorage(account);
           this.accountSubject.next(account);
           this.toastrService.success(
             `Welcome to Balanced Banking, ${account.firstName}`,
@@ -39,6 +38,17 @@ export class AccountService {
     );
   }
 
+  logOut() {
+    this.accountSubject.next(new Account());
+    localStorage.removeItem(ACCOUNT_KEY);
+    // TODO: redirect to home page
+    window.location.reload();
+  }
+
+  // get isAuthenticated() {
+    
+  // }
+
   getAll(): Observable<Account[]> {
     // TODO: if database connection fails, return sampleAccounts
     // TODO: implement database connection
@@ -49,17 +59,17 @@ export class AccountService {
 
   }
 
-  // private setAccountToLocalStorage(account: Account) {
-  //   localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
-  // }
+  private setAccountToLocalStorage(account: Account) {
+    localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
+  }
 
-  // private getAccountFromLocalStorage(): Account {
-  //   const accountJson = localStorage.getItem(ACCOUNT_KEY);
+  private getAccountFromLocalStorage(): Account {
+    const accountJson = localStorage.getItem(ACCOUNT_KEY);
 
-  //   if (accountJson) {
-  //     return JSON.parse(accountJson) as Account;
-  //   }
+    if (accountJson) {
+      return JSON.parse(accountJson) as Account;
+    }
 
-  //   return new Account();
-  // }
+    return new Account();
+  }
 }

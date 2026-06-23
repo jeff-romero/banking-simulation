@@ -14,12 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
     Navigation,
     Home,
     Login,
-    ReactiveFormsModule,
-    // ToastrModule.forRoot({
-    //   timeOut:3000,
-    //   positionClass:'toast-bottom-right',
-    //   newestOnTop:false
-    // })
+    ReactiveFormsModule
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

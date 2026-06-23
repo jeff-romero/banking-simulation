@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { AccountService } from '../services/account-service';
+import { Account } from '../shared/models/account';
 
 @Component({
   selector: 'app-navigation',
@@ -19,24 +21,32 @@ export class Navigation implements OnInit {
   ACCOUNT_MANAGEMENT_ICON = "fa fa-cog";
   loginStatus = "fa fa-lock";
   logInStatusIcon = this.LOCK_ICON;
-  @Input() isLoggedIn:boolean = false;
+  @Output() loggedIn:boolean = false;
+  account!: Account;
 
-  constructor() {
+  constructor(private accountService: AccountService, private router: Router) {
     // let checkingSavingsDropdown = document.getElementById('checking-savings-dropdown') as HTMLSpanElement;
     // checkingSavingsDropdown.addEventListener("mouseover", (e) => {
 
     // });
+    this.accountService.accountObservable.subscribe((newAccount) => {
+      this.account = newAccount;
+
+      if (this.isAuthenticated) {
+        this.loggedIn = true;
+      }
+    });
   }
 
   ngOnInit() {
-    if (this.isLoggedIn) {
-      this.logInStatus = this.MY_ACCOUNT;
-      this.logInStatusIcon = this.ACCOUNT_MANAGEMENT_ICON;
-    }
+
   }
 
-  hover(event: PointerEvent): void {
-    event.preventDefault();
-    console.log("hovered");
+  logOut() {
+    this.accountService.logOut();
+  }
+
+  get isAuthenticated() {
+    return this.account.token;
   }
 }

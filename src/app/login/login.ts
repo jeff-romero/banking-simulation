@@ -4,6 +4,7 @@ import CryptoJS from 'crypto-js';
 import { AccountService } from '../services/account-service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { Account } from '../shared/models/account';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,10 @@ export class Login implements OnInit {
   attemptedLogin = false;
   @Input() loggedIn:boolean = false;
   returnUrl = '';
+  account!: Account;
 
   // injections
   constructor(private formBuilder:FormBuilder, private accountService:AccountService, private activatedRoute: ActivatedRoute, private router:Router) {
-
   }
 
   ngOnInit() {
@@ -33,6 +34,10 @@ export class Login implements OnInit {
     if (this.loggedIn) {
       
     }
+  }
+
+  get isLoggedIn() {
+    return this.loggedIn;
   }
 
   get formControl() {

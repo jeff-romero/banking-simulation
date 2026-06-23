@@ -5,17 +5,12 @@
     margin: 0;
 }
 
-#menu {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1vw;
-}
+/* topmenu - oklch(64.1% 0.14145 247.209) */
 
 #root-content {
     display: flex;
     flex-direction: column;
-    background-color: oklch(46.147% 0.18014 281.246);
+    background-color: oklch(51.431% 0.14417 250.924);
     height: 100dvh;
     justify-content: center;
     padding: 2vw;
