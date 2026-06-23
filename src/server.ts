@@ -31,6 +31,10 @@ app.post("/api/users/login", (req, res) => {
   }
 });
 
+app.get("/api/transaction-history", (req, res) => {
+  res.send("Transaction history");
+});
+
 const generateTokenResponse = (account:any) => {
   const token = jwt.sign({
     email:account.email

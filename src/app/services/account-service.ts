@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Account } from '../shared/models/account';
-import { sampleAccounts } from '../../data';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { ACCOUNT_LOGIN_URL, ACCOUNTS_URL } from '../shared/constants/urls';
+import { ACCOUNT_LOGIN_URL, ACCOUNTS_URL, TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { IAccountLogin } from '../shared/interfaces/IAccountLogin';
 import { ToastrService } from 'ngx-toastr';
 

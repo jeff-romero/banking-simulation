@@ -1,28 +1,17 @@
-<div id="frame">
+<div class="componentWrapper">
     <div class="inputGroup" [formGroup]="loginForm">
         <label class="inputCaption">Email</label>
         <input type="email" title="Email" placeholder="Email" formControlName="email">
-        @if (formControl['email'].errors && attemptedLogin) {
-            <div class="errors">
-                @if (formControl['email'].errors['required']) {
-                    <div>Email required</div>
-                }
-                @if (formControl['email'].errors['email']) {
-                    <div>Email domain required</div>
-                }
-            </div>
-        }
+        <input-validation
+        [control]="formControl['email']"
+        [showErrors]="attemptedLogin"></input-validation>
     </div>
     <div class="inputGroup" [formGroup]="loginForm">
         <label class="inputCaption">Password</label>
         <input type="password" title="Password" placeholder="Password" formControlName="password">
-        @if (formControl['password'].errors && attemptedLogin) {
-            <div class="errors">
-                @if (formControl['password'].errors['required']) {
-                    <div>Password required</div>
-                }
-            </div>
-        }
+        <input-validation
+        [control]="formControl['password']"
+        [showErrors]="attemptedLogin"></input-validation>
     </div>
     <button id="logIn" type="logIn" (click)="logIn()">Log In</button>
 </div>

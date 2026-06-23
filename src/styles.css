@@ -49,6 +49,18 @@ body {
     }
 }
 
+.componentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    padding: 1vw;
+    background-color: oklch(69.137% 0.14686 247.021);
+}
+
 /* @media screen and (max-width: 899px) {
     body {
 

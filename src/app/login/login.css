@@ -24,10 +24,6 @@
     overflow-wrap: break-word;
 }
 
-.errors {
-    color: oklch(43.078% 0.15959 27.201);
-}
-
 @media screen and (min-width: 900px) {
     .inputCaption {
         width: 5vw;

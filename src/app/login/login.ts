@@ -5,10 +5,11 @@ import { AccountService } from '../services/account-service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Account } from '../shared/models/account';
+import { InputValidation } from '../partials/input-validation/input-validation';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputValidation],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
