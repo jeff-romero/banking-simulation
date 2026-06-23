@@ -1,30 +1,47 @@
-# BankingSimulation
+# Banking Simulation
+
+## Summary
+
+Building a full-stack banking application which supports fund transfers, account creation and management, deposits, and withdrawals.
+
+## Tech Stack
+
+- Angular
+- TypeScript
+- Node.js
+- Express
+- MongoDB
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
 
 ## Development server
 
-To start a local development server, run:
+1. Install necessary dependencies:
+
+```bash
+npm install
+```
+
+2. Start the local development server:
 
 ```bash
 ng serve
 ```
 
+3. Run the API service on a separate terminal with:
+```bash
+npm run server
+```
+
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## Screenshots
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Preview of the home page after successfully logging in. (Progress update as of June 22, 2026)
+![image](public/home-page-logged-in.png)
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+When the user successfully logs in with the correct credentials, a toast notification will pop up on the screen.
+![image](public/login-toast.png)
 
 ## Building
 
