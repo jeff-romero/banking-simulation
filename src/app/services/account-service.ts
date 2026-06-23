@@ -55,10 +55,6 @@ export class AccountService {
     return this.http.get<Account[]>(ACCOUNTS_URL);
   }
 
-  transferFunds(srcAccount: number, dstAccount: number, amount: number) {
-
-  }
-
   private setAccountToLocalStorage(account: Account) {
     localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
   }

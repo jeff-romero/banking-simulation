@@ -1,0 +1,6 @@
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vw;
+    width: fit-content;
+}
