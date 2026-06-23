@@ -28,10 +28,16 @@ npm install
 ng serve
 ```
 
-3. Run the API service on a separate terminal with:
+3. Run the API server on a separate terminal with:
 ```bash
 npm run server
 ```
+- NOTE: the API server requires a generated secret key.
+Create a `credentials.ts` file in the `src/` folder.
+Generate a secret key and export it from the `credentials.ts` file:
+    ```
+    export const secretKey = "SomeSecretKey";
+    ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
