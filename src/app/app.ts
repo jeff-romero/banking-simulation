@@ -25,5 +25,5 @@ import { ToastrModule } from 'ngx-toastr';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('balanced-bank-simulation');
+  protected readonly title = signal('banking-simulation');
 }
