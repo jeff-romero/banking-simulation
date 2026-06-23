@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { TransferService } from '../services/transfer-service';
 
 @Component({
   selector: 'app-transaction-history',
@@ -6,9 +8,13 @@ import { Component } from '@angular/core';
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
-export class TransactionHistory {
-  constructor() {
+export class TransactionHistory implements OnInit {
+  constructor(private transferService: TransferService) {
 
+  }
+
+  ngOnInit(): void {
+    this.transferService.getTransactionHistory();
   }
 
   sort(event: Event) {

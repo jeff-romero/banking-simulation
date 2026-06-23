@@ -32,6 +32,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 app.get("/api/transaction-history", (req, res) => {
+  // let transactions = sampleAccounts.find(transactions => );
   res.send("Transaction history");
 });
 

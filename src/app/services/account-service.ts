@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ACCOUNT_LOGIN_URL, ACCOUNTS_URL, TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { IAccountLogin } from '../shared/interfaces/IAccountLogin';
 import { ToastrService } from 'ngx-toastr';
+import { Transaction } from '../shared/models/transaction';
 
 const ACCOUNT_KEY = 'Account';
 
@@ -47,6 +48,10 @@ export class AccountService {
   // get isAuthenticated() {
     
   // }
+
+  get currentAccount(): Observable<Account> {
+    return this.accountSubject;
+  }
 
   getAll(): Observable<Account[]> {
     // TODO: if database connection fails, return sampleAccounts

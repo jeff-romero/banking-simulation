@@ -1,23 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { Account } from '../shared/models/account';
 import { Transaction } from '../shared/models/transaction';
 import { TRANSACTION_HISTORY_URL } from '../shared/constants/urls';
+import { AccountService } from './account-service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TransferService {
-  constructor(private http: HttpClient) {
+export class TransferService implements OnInit {
+  account!: Account;
 
+  constructor(private http: HttpClient, private accountService: AccountService) {
+    this.accountService.accountObservable.subscribe({
+      next: (account: Account) => {
+        this.account = account;
+        if (this.account.transactions) {
+          for (let i = 0; i < this.account.transactions?.length; i++) {
+            console.log(this.account.transactions[i]);
+          }
+        }
+      },
+      error: (errorResponse: any) => {
+        console.log(`Could not retrieve current account! ${errorResponse}`);
+      }
+    });
   }
 
-  getAll(): Observable<Account[]> {
-    // TODO: if database connection fails, return sampleAccounts
-    // TODO: implement database connection
-    return this.http.get<Account[]>(TRANSACTION_HISTORY_URL);
+  ngOnInit(): void {
+    // let {}
+  }
+
+  getTransactionHistory(): Transaction[] | undefined {
+    return this.account.transactions;
   }
 
   transferFunds(srcAccount: number, dstAccount: number, amount: number) {
