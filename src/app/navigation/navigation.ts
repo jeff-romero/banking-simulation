@@ -24,7 +24,7 @@ export class Navigation implements OnInit {
   @Output() loggedIn:boolean = false;
   account!: Account;
 
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(private accountService: AccountService) {
     // let checkingSavingsDropdown = document.getElementById('checking-savings-dropdown') as HTMLSpanElement;
     // checkingSavingsDropdown.addEventListener("mouseover", (e) => {
 

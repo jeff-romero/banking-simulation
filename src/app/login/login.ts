@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import CryptoJS from 'crypto-js';
 import { AccountService } from '../services/account-service';
@@ -28,16 +28,16 @@ export class Login implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('Account')) {
+      this.router.navigateByUrl('/');
+    }
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
-
-    if (this.loggedIn) {
-      
-    }
   }
 
   get isLoggedIn() {
@@ -66,7 +66,11 @@ export class Login implements OnInit {
       email: this.formControl['email'].value,
       password: this.formControl['password']
     }).subscribe(() => {
-      this.router.navigateByUrl(this.returnUrl);
+      // yes, it is necessary to repeat navigateByUrl twice
+      setTimeout(() => {
+        this.router.navigateByUrl('/');
+      }, 0);
+      this.router.navigateByUrl('/');
     });
   }
 }
