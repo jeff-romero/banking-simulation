@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import CryptoJS from 'crypto-js';
 import { AccountService } from '../services/account-service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Account } from '../shared/models/account';
-import { InputValidation } from '../partials/input-validation/input-validation';
+import { TextInput } from '../partials/text-input/text-input';
+import { InputContainer } from '../partials/input-container/input-container';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, InputValidation],
+  imports: [ReactiveFormsModule, TextInput, InputContainer],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -19,6 +20,8 @@ export class Login implements OnInit {
   @Input() loggedIn:boolean = false;
   returnUrl = '';
   account!: Account;
+  EMAIL = 'Email';
+  PASSWORD = 'Password';
 
   // injections
   constructor(private formBuilder:FormBuilder, private accountService:AccountService, private activatedRoute: ActivatedRoute, private router:Router) {
@@ -56,8 +59,8 @@ export class Login implements OnInit {
     let hash:any = CryptoJS.SHA256(toHash).toString();
     this.formControl['password'] = hash;
 
-    console.log(`email: ${this.formControl['email'].value}`);
-    console.log(`password: ${this.formControl['password']}`);
+    // console.log(`email: ${this.formControl['email'].value}`);
+    // console.log(`password: ${this.formControl['password']}`);
 
     this.accountService.logIn({ 
       email: this.formControl['email'].value,

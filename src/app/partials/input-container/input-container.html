@@ -1,4 +1,6 @@
 <div class="inputContainer">
   <label>{{ label }}</label>
-  <input type="text" [placeholder]="placeholder">
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
 </div>

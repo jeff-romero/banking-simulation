@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-input-container',
+  selector: 'input-container',
   imports: [],
   templateUrl: './input-container.html',
   styleUrl: './input-container.css',
 })
 export class InputContainer implements OnInit {
   @Input() label!: string;
-  @Input() placeholder!: string;
+  // @Input() placeholder!: string;
 
   constructor() {
 

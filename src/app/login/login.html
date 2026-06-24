@@ -1,17 +1,9 @@
 <div class="componentWrapper">
-    <div class="inputGroup" [formGroup]="loginForm">
-        <label class="inputCaption">Email</label>
-        <input type="email" title="Email" placeholder="Email" formControlName="email">
-        <input-validation
-        [control]="formControl['email']"
-        [showErrors]="attemptedLogin"></input-validation>
-    </div>
-    <div class="inputGroup" [formGroup]="loginForm">
-        <label class="inputCaption">Password</label>
-        <input type="password" title="Password" placeholder="Password" formControlName="password">
-        <input-validation
-        [control]="formControl['password']"
-        [showErrors]="attemptedLogin"></input-validation>
-    </div>
-    <button id="logIn" type="logIn" (click)="logIn()">Log In</button>
+  <div class="inputGroup" [formGroup]="loginForm">
+    <text-input label="Email" type="email" [control]="formControl['email']" [showErrors]="attemptedLogin"></text-input>
+  </div>
+  <div class="inputGroup" [formGroup]="loginForm">
+    <text-input label="Password" type="password" [control]="formControl['password']" [showErrors]="attemptedLogin"></text-input>
+  </div>
+  <button id="logIn" type="logIn" (click)="logIn()">Log In</button>
 </div>
