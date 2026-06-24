@@ -49,6 +49,9 @@ Preview of the home page after successfully logging in. (Progress update as of J
 When the user successfully logs in with the correct credentials, a toast notification will pop up on the screen.
 ![image](public/login-toast.png)
 
+Postman successful response to GET request searching for an account by its account number.
+![image](public/searchAccountByNum.png)
+
 ## Building
 
 To build the project run:

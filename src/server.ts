@@ -31,6 +31,12 @@ app.post("/api/users/login", (req, res) => {
   }
 });
 
+app.get("/api/accounts/:accountNum", (req, res) => {
+  let searchTerm = req.params.accountNum;
+  const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
+  res.send(account);
+});
+
 app.get("/api/transaction-history", (req, res) => {
   // let transactions = sampleAccounts.find(transactions => );
   res.send("Transaction history");

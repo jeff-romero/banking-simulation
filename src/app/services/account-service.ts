@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { Account } from '../shared/models/account';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { ACCOUNT_LOGIN_URL, ACCOUNTS_URL, TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
+import { ACCOUNT_LOGIN_URL, ACCOUNTS_URL, SEARCH_ACCOUNT_NUM_URL, TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { IAccountLogin } from '../shared/interfaces/IAccountLogin';
 import { ToastrService } from 'ngx-toastr';
 import { Transaction } from '../shared/models/transaction';
+import { sampleAccounts } from '../../data';
 
 const ACCOUNT_KEY = 'Account';
 
@@ -57,6 +58,10 @@ export class AccountService {
     // TODO: if database connection fails, return sampleAccounts
     // TODO: implement database connection
     return this.http.get<Account[]>(ACCOUNTS_URL);
+  }
+
+  getAccountByNum(accountNum: number): Observable<Account> {
+    return this.http.get<Account>(SEARCH_ACCOUNT_NUM_URL + accountNum);
   }
 
   private setAccountToLocalStorage(account: Account) {
