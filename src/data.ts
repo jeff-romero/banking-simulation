@@ -1,5 +1,3 @@
-import { Account } from './app/shared/models/account';
-
 export const sampleAccounts: any[] = [
     {
         accountNumber: 5555555555,
@@ -13,6 +11,7 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 7429995109,
+                type: 'transfer',
                 amount: 952,
                 dayOfWeek: 'Monday',
                 month: 'June',
@@ -27,6 +26,7 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 1212121212,
+                type: 'transfer',
                 amount: 20,
                 dayOfWeek: 'Friday',
                 month: 'February',
@@ -35,6 +35,51 @@ export const sampleAccounts: any[] = [
                 hour: 14,
                 minute: 53,
                 second: 47,
+                meridiem: 'PM',
+                timezone: 'GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'withdrawal',
+                amount: 1,
+                dayOfWeek: 'Wednesday',
+                month: 'September',
+                dayOfMonth: 10,
+                year: 2026,
+                hour: 14,
+                minute: 53,
+                second: 47,
+                meridiem: 'PM',
+                timezone: 'GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'withdrawal',
+                amount: 8,
+                dayOfWeek: 'Saturday',
+                month: 'December',
+                dayOfMonth: 25,
+                year: 2025,
+                hour: 24,
+                minute: 33,
+                second: 14,
+                meridiem: 'AM',
+                timezone: 'GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'deposit',
+                amount: 97,
+                dayOfWeek: 'Tuesday',
+                month: 'October',
+                dayOfMonth: 23,
+                year: 2023,
+                hour: 22,
+                minute: 18,
+                second: 55,
                 meridiem: 'PM',
                 timezone: 'GMT+01:00'
             }
@@ -53,6 +98,7 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 7429995109,
+                type: 'transfer',
                 amount: 952,
                 dayOfWeek: 'Monday',
                 month: 'June',
@@ -78,6 +124,7 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 1212121212,
+                type: 'transfer',
                 amount: 20,
                 dayOfWeek: 'Friday',
                 month: 'February',

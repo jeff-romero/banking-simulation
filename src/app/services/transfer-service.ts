@@ -33,8 +33,12 @@ export class TransferService implements OnInit {
     // let {}
   }
 
-  getTransactionHistory(): Transaction[] | undefined {
-    return this.account.transactions;
+  getTransactions(accountNum: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum);
+  }
+
+  getTransactionsByType(accountNum: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum + '/filter');
   }
 
   transferFunds(srcAccount: number, dstAccount: number, amount: number) {

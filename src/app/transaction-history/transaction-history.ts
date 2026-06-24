@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TransferService } from '../services/transfer-service';
+import { AccountService } from '../services/account-service';
 
 @Component({
   selector: 'app-transaction-history',
@@ -14,7 +15,7 @@ export class TransactionHistory implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transferService.getTransactionHistory();
+    this.transferService.getTransactions(this.transferService.account.accountNumber);
   }
 
   sort(event: Event) {

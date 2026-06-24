@@ -52,6 +52,9 @@ When the user successfully logs in with the correct credentials, a toast notific
 Postman successful response to GET request searching for an account by its account number.
 ![image](public/searchAccountByNum.png)
 
+Postman successful response to GET request retrieving only withdrawals.
+![image](public/filterTransactionByType.png)
+
 ## Building
 
 To build the project run:
