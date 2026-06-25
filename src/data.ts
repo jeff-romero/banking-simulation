@@ -11,87 +11,37 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 7429995109,
-                type: 'transfer',
+                type: 'Transfer',
                 amount: 952,
-                date: {
-                    dayOfWeek: 'Monday',
-                    month: 'June',
-                    dayOfMonth: 21,
-                    year: 2026,
-                    hour: 11,
-                    minute: 17,
-                    second: 2,
-                    meridiem: 'AM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Monday, June 21, 2026, 11:17:02 AM GMT+01:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 1212121212,
-                type: 'transfer',
+                type: 'Transfer',
                 amount: 20,
-                date: {
-                    dayOfWeek: 'Friday',
-                    month: 'February',
-                    dayOfMonth: 10,
-                    year: 2026,
-                    hour: 14,
-                    minute: 53,
-                    second: 47,
-                    meridiem: 'PM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Friday, February 10, 2026, 01:26:42 AM GMT+01:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
-                type: 'withdrawal',
+                type: 'Withdrawal',
                 amount: 1,
-                date: {
-                    dayOfWeek: 'Wednesday',
-                    month: 'September',
-                    dayOfMonth: 10,
-                    year: 2026,
-                    hour: 14,
-                    minute: 53,
-                    second: 47,
-                    meridiem: 'PM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Wednesday, September 10, 2026, 14:53:47 PM GMT+01:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
-                type: 'withdrawal',
+                type: 'Withdrawal',
                 amount: 8,
-                date: {
-                    dayOfWeek: 'Saturday',
-                    month: 'December',
-                    dayOfMonth: 25,
-                    year: 2025,
-                    hour: 24,
-                    minute: 33,
-                    second: 14,
-                    meridiem: 'AM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Saturday, December 25, 2025, 24:33:14 AM GMT+01:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
-                type: 'deposit',
+                type: 'Deposit',
                 amount: 97,
-                date: {
-                    dayOfWeek: 'Tuesday',
-                    month: 'October',
-                    dayOfMonth: 23,
-                    year: 2023,
-                    hour: 22,
-                    minute: 18,
-                    second: 55,
-                    meridiem: 'PM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
             }
         ]
     },
@@ -108,19 +58,9 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 7429995109,
-                type: 'transfer',
+                type: 'Transfer',
                 amount: 952,
-                date: {
-                    dayOfWeek: 'Monday',
-                    month: 'June',
-                    dayOfMonth: 21,
-                    year: 2026,
-                    hour: 11,
-                    minute: 17,
-                    second: 2,
-                    meridiem: 'AM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Monday, June 21, 2026, 11:17:02 AM GMT+01:00'
             }
         ]
     },
@@ -136,19 +76,9 @@ export const sampleAccounts: any[] = [
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 1212121212,
-                type: 'transfer',
+                type: 'Transfer',
                 amount: 20,
-                date: {
-                    dayOfWeek: 'Friday',
-                    month: 'February',
-                    dayOfMonth: 10,
-                    year: 2026,
-                    hour: 14,
-                    minute: 53,
-                    second: 47,
-                    meridiem: 'PM',
-                    timezone: 'GMT+01:00'
-                }
+                date: 'Friday, February 10, 2026, 14:53:47 PM GM!+01:00'
             }
         ]
     },

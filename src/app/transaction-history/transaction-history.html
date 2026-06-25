@@ -37,21 +37,7 @@
             <td>{{ transaction.dstAccountNum }}</td>
             <td>{{ transaction.amount }}</td>
             <td>{{ transaction.type }}</td>
-            <td>
-                <div class="date">
-                    <span>{{ transaction.date.dayOfWeek }}</span>
-                    <span>{{ transaction.date.month }}</span>
-                    <span>{{ transaction.date.dayOfMonth }}</span>
-                    <span>{{ transaction.date.year }}</span>
-                    <div>
-                        <span>{{ transaction.date.hour }}:</span>
-                        <span>{{ transaction.date.minute }}:</span>
-                        <span>{{ transaction.date.second }}</span>
-                    </div>
-                    <span>{{ transaction.date.meridiem }}</span>
-                    <span>{{ transaction.date.timezone }}</span>
-                </div>
-            </td>
+            <td>{{ transaction.date }}</td>
         </tr>
     }
 </table>

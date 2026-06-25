@@ -18,11 +18,6 @@ export class TransferService implements OnInit {
     this.accountService.accountObservable.subscribe({
       next: (account: Account) => {
         this.account = account;
-        if (this.account.transactions) {
-          for (let i = 0; i < this.account.transactions?.length; i++) {
-            console.log(this.account.transactions[i]);
-          }
-        }
       },
       error: (errorResponse: any) => {
         console.log(`Could not retrieve current account! ${errorResponse}`);
