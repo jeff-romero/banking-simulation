@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 
 import { TransferService } from '../services/transfer-service';
 import { Transaction } from '../shared/models/transaction';
-import { KeyValuePipe } from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-transaction-history',
-  imports: [KeyValuePipe],
+  imports: [KeyValuePipe, AsyncPipe],
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
 export class TransactionHistory implements OnInit {
   transactions: Transaction[] = [];
+  transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
   constructor(private transferService: TransferService) {
   }
@@ -21,6 +23,7 @@ export class TransactionHistory implements OnInit {
     this.transferService.getTransactions().subscribe({
       next: (transactions: Transaction[]) => {
         this.transactions = transactions;
+        this.transactionsSubject.next(this.transactions);
       },
       error: (errorResponse: any) => {
         console.log(`Could not retrieve transaction!: ${errorResponse}`);

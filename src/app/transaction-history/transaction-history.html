@@ -31,7 +31,7 @@
             </div>
         </th>
     </tr>
-    @for (transaction of transactions; track $index) {
+    @for (transaction of (transactionsSubject | async); track transaction) {
         <tr>
             <td>{{ transaction.srcAccountNum }}</td>
             <td>{{ transaction.dstAccountNum }}</td>
@@ -39,10 +39,10 @@
             <td>{{ transaction.type }}</td>
             <td>
                 <div class="date">
-                    <p>{{ transaction.date.dayOfWeek }}, </p>
-                    <span>{{ transaction.date.month }}, </span>
-                    <span>{{ transaction.date.dayOfMonth }}, </span>
-                    <span>{{ transaction.date.year }}, </span>
+                    <span>{{ transaction.date.dayOfWeek }}</span>
+                    <span>{{ transaction.date.month }}</span>
+                    <span>{{ transaction.date.dayOfMonth }}</span>
+                    <span>{{ transaction.date.year }}</span>
                     <div>
                         <span>{{ transaction.date.hour }}:</span>
                         <span>{{ transaction.date.minute }}:</span>
