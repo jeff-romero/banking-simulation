@@ -20,27 +20,38 @@
         </th>
         <th>
             <div class="thGroup">
+                <span>Type</span>
+                <i class="fa fa-sort" (click)="sort($event)"></i>
+            </div>
+        </th>
+        <th>
+            <div class="thGroup">
                 <span>Date</span>
                 <i class="fa fa-sort" (click)="sort($event)"></i>
             </div>
         </th>
     </tr>
-    <tr>
-        <td>5555555555</td>
-        <td>7429995109</td>
-        <td>952</td>
-        <td>Monday, June 21, 2026, 11:17:02 AM GMT+01:00</td>
-    </tr>
-    <tr>
-        <td>5555555555</td>
-        <td>1212121212</td>
-        <td>20</td>
-        <td>Friday, February 10, 2026, 14:53:47 PM GMT+01:00</td>
-    </tr>
-    <tr>
-        <td>5555555555</td>
-        <td>1212121212</td>
-        <td>9999</td>
-        <td>Wednesday, September 10, 2026, 14:53:47 PM GMT+01:00</td>
-    </tr>
+    @for (transaction of transactions; track $index) {
+        <tr>
+            <td>{{ transaction.srcAccountNum }}</td>
+            <td>{{ transaction.dstAccountNum }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>
+                <div class="date">
+                    <p>{{ transaction.date.dayOfWeek }}, </p>
+                    <span>{{ transaction.date.month }}, </span>
+                    <span>{{ transaction.date.dayOfMonth }}, </span>
+                    <span>{{ transaction.date.year }}, </span>
+                    <div>
+                        <span>{{ transaction.date.hour }}:</span>
+                        <span>{{ transaction.date.minute }}:</span>
+                        <span>{{ transaction.date.second }}</span>
+                    </div>
+                    <span>{{ transaction.date.meridiem }}</span>
+                    <span>{{ transaction.date.timezone }}</span>
+                </div>
+            </td>
+        </tr>
+    }
 </table>

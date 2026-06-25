@@ -13,7 +13,7 @@ export class TextInput implements OnInit {
   @Input() control!: AbstractControl;
   @Input() showErrors: boolean = true;
   @Input() label!: string;
-  @Input() type: 'text' | 'password' | 'email' = 'text';
+  @Input() type: 'text' | 'password' | 'email' | 'accountNum' | 'amount' = 'text';
 
   constructor() {
 

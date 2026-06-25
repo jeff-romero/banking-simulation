@@ -4,6 +4,7 @@ import { AbstractControl } from '@angular/forms';
 const VALIDATOR_MESSAGES: any = {
   required: 'Input required',
   email: 'Invalid email',
+  amount: 'Invalid amount',
 };
 
 @Component({

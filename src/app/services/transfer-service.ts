@@ -1,11 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { Account } from '../shared/models/account';
 import { Transaction } from '../shared/models/transaction';
-import { TRANSACTION_HISTORY_URL } from '../shared/constants/urls';
+import { TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { AccountService } from './account-service';
+import { ITransfer } from '../shared/interfaces/ITransfer';
 
 @Injectable({
   providedIn: 'root',
@@ -33,15 +34,30 @@ export class TransferService implements OnInit {
     // let {}
   }
 
-  getTransactions(accountNum: number): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum);
+  get accountNumber() {
+    return this.account.accountNumber;
+  }
+
+  getTransactions(): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.account.accountNumber);
   }
 
   getTransactionsByType(accountNum: number): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum + '/filter');
   }
 
-  transferFunds(srcAccount: number, dstAccount: number, amount: number) {
+  transferFunds(transfer: ITransfer) {
+    let body = {srcAccountNum: this.accountNumber, dstAccountNum: transfer.accountNum, amount: transfer.amount};
+    console.log(body);
+    return this.http.post<Transaction>(TRANSFER_FUNDS_URL, body).pipe(
+      tap({
+        next: (transaction: any) => {
 
+        },
+        error: (errorResponse: any) => {
+          console.log(errorResponse);
+        }
+      })
+    );
   }
 }

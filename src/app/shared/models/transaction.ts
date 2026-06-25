@@ -3,6 +3,10 @@ export class Transaction {
     dstAccountNum!: number;
     type!: string;
     amount!: number;
+    date!: Date;
+}
+
+export class Date {
     dayOfWeek!: string;
     month!: string;
     dayOfMonth!: number;
