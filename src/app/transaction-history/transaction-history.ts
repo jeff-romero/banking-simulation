@@ -5,6 +5,7 @@ import { Transaction } from '../shared/models/transaction';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { AccountService } from '../services/account-service';
 
 @Component({
   selector: 'app-transaction-history',
@@ -16,10 +17,14 @@ export class TransactionHistory implements OnInit {
   transactions: Transaction[] = [];
   transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
-  constructor(private transferService: TransferService) {
+  constructor(private transferService: TransferService, private accountService: AccountService, private router: Router) {
   }
 
   ngOnInit(): void {
+    if (!this.accountService.isAuthenticated()) {
+      return;
+    }
+
     this.transferService.getTransactions().subscribe({
       next: (transactions: Transaction[]) => {
         this.transactions = transactions;

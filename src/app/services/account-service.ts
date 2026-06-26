@@ -7,6 +7,7 @@ import { IAccountLogin } from '../shared/interfaces/IAccountLogin';
 import { ToastrService } from 'ngx-toastr';
 import { Transaction } from '../shared/models/transaction';
 import { sampleAccounts } from '../../data';
+import { Router } from '@angular/router';
 
 const ACCOUNT_KEY = 'Account';
 
@@ -17,7 +18,7 @@ export class AccountService {
   private accountSubject = new BehaviorSubject<Account>(this.getAccountFromLocalStorage());
   public accountObservable: Observable<Account>;
 
-  constructor(private http:HttpClient, private toastrService: ToastrService) {
+  constructor(private http:HttpClient, private toastrService: ToastrService, private router: Router) {
     this.accountObservable = this.accountSubject.asObservable();
   }
 
@@ -52,6 +53,20 @@ export class AccountService {
 
   get currentAccount(): Observable<Account> {
     return this.accountSubject;
+  }
+
+  isAuthenticated(): boolean {
+    this.accountSubject.subscribe({
+      next: (account: Account) => {
+        return account.token;
+      },
+      error: (errorResponse: any) => {
+        console.log(`error ${errorResponse}`);
+      }
+    });
+
+    this.router.navigateByUrl('login');
+    return false;
   }
 
   getAll(): Observable<Account[]> {

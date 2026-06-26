@@ -26,7 +26,6 @@ export class TransferService implements OnInit {
   }
 
   ngOnInit(): void {
-    // let {}
   }
 
   get accountNumber() {
