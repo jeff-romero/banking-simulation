@@ -59,7 +59,7 @@ export class AccountService {
     let token = '';
     this.accountSubject.subscribe({
       next: (account: Account) => {
-        return account.token;
+        token = account.token;
       },
       error: (errorResponse: any) => {
         console.log(`error ${errorResponse}`);
@@ -68,8 +68,9 @@ export class AccountService {
 
     if (!token) {
       this.router.navigateByUrl('login');
+      return false;
     }
-    return false;
+    return true;
   }
 
   getAll(): Observable<Account[]> {
