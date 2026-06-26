@@ -56,6 +56,7 @@ export class AccountService {
   }
 
   isAuthenticated(): boolean {
+    let token = '';
     this.accountSubject.subscribe({
       next: (account: Account) => {
         return account.token;
@@ -65,7 +66,9 @@ export class AccountService {
       }
     });
 
-    this.router.navigateByUrl('login');
+    if (!token) {
+      this.router.navigateByUrl('login');
+    }
     return false;
   }
 
