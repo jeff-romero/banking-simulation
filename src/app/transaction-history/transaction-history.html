@@ -3,41 +3,52 @@
         <th>
             <div class="thGroup">
                 <span>From</span>
-                <i class="fa fa-sort" (click)="sort($event)"></i>
+                <i class="fa fa-sort" (click)="sortSrcAccountNum()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>To</span>
-                <i class="fa fa-sort" (click)="sort($event)"></i>
+                <i class="fa fa-sort" (click)="sortDstAccountNum()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Amount</span>
-                <i class="fa fa-sort" (click)="sort($event)"></i>
+                <i class="fa fa-sort" (click)="sortAmount()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Type</span>
-                <i class="fa fa-sort" (click)="sort($event)"></i>
+                <i class="fa fa-sort" (click)="sortType()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Date</span>
-                <i class="fa fa-sort" (click)="sort($event)"></i>
+                <i class="fa fa-sort" (click)="sortDate()"></i>
             </div>
         </th>
     </tr>
-    @for (transaction of (transactionsSubject | async); track transaction) {
-        <tr>
-            <td>{{ transaction.srcAccountNum }}</td>
-            <td>{{ transaction.dstAccountNum }}</td>
-            <td>{{ transaction.amount }}</td>
-            <td>{{ transaction.type }}</td>
-            <td>{{ transaction.date }}</td>
-        </tr>
+    @for (transaction of (transactionsSubject | async); track $index) {
+        @if ($index % 2 == 0) {
+            <tr class="darkBg">
+                <td>{{ transaction.srcAccountNum }}</td>
+                <td>{{ transaction.dstAccountNum }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+        }
+        @else {
+            <tr class="lightBg">
+                <td>{{ transaction.srcAccountNum }}</td>
+                <td>{{ transaction.dstAccountNum }}</td>
+                <td>{{ transaction.amount }}</td>
+                <td>{{ transaction.type }}</td>
+                <td>{{ transaction.date }}</td>
+            </tr>
+        }
     }
 </table>

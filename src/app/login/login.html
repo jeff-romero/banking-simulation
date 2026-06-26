@@ -1,9 +1,9 @@
 <div class="componentWrapper">
   <div class="inputGroup" [formGroup]="loginForm">
-    <text-input label="Email" type="email" [control]="formControl['email']" [showErrors]="attemptedLogin"></text-input>
+    <text-input label="Email" [placeholder]="emailPlaceholder" type="email" [control]="formControl['email']" [showErrors]="attemptedLogin"></text-input>
   </div>
   <div class="inputGroup" [formGroup]="loginForm">
-    <text-input label="Password" type="password" [control]="formControl['password']" [showErrors]="attemptedLogin"></text-input>
+    <text-input label="Password" [placeholder]="passwordPlaceholder" type="password" [control]="formControl['password']" [showErrors]="attemptedLogin"></text-input>
   </div>
   <button id="logIn" type="logIn" (click)="logIn()">Log In</button>
 </div>

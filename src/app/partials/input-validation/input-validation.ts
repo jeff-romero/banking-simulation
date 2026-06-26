@@ -4,6 +4,8 @@ import { AbstractControl } from '@angular/forms';
 const VALIDATOR_MESSAGES: any = {
   required: 'Input required',
   email: 'Invalid email',
+  pattern: 'Invalid format',
+  accountNum: 'Invalid account number format',
   amount: 'Invalid amount',
 };
 

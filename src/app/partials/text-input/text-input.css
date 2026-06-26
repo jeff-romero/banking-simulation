@@ -1,0 +1,6 @@
+.emptyContent {
+    position: relative;
+    content: "";
+    min-height: 1.25em;
+    line-height: 1.25;
+}

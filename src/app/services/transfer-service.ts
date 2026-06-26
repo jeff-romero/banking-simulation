@@ -41,13 +41,13 @@ export class TransferService implements OnInit {
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum + '/filter');
   }
 
-  transferFunds(transfer: ITransfer) {
+  transferFunds(transfer: ITransfer): Observable<Transaction> {
     let body = {srcAccountNum: this.accountNumber, dstAccountNum: transfer.accountNum, amount: transfer.amount};
     console.log(body);
     return this.http.post<Transaction>(TRANSFER_FUNDS_URL, body).pipe(
       tap({
         next: (transaction: any) => {
-
+          console.log(transaction);
         },
         error: (errorResponse: any) => {
           console.log(errorResponse);

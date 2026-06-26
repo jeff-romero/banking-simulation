@@ -34,4 +34,24 @@ export class TransactionHistory implements OnInit {
   sort(event: Event) {
     console.log(event);
   }
+
+  sortSrcAccountNum(): void {
+
+  }
+
+  sortDstAccountNum(): void {
+
+  }
+
+  sortAmount(): void {
+
+  }
+
+  sortType(): void {
+
+  }
+
+  sortDate(): void {
+    
+  }
 }

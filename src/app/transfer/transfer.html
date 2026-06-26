@@ -1,5 +1,5 @@
 <div class="transferWrapper" [formGroup]="transferForm">
-  <text-input [label]="transferLabel" type="accountNum" [control]="formControl['accountNum']" [showErrors]="attemptedTransfer"></text-input>
-  <text-input [label]="amountLabel" type="amount" [control]="formControl['amount']" [showErrors]="attemptedTransfer"></text-input>
-  <button (click)="transfer">Transfer</button>
+  <text-input [label]="transferLabel" [placeholder]="transferPlaceholder" type="accountNum" [control]="formControl['accountNum']" [showErrors]="attemptedTransfer"></text-input>
+  <text-input [label]="amountLabel" [placeholder]="amountPlaceholder" type="amount" [control]="formControl['amount']" [showErrors]="attemptedTransfer"></text-input>
+  <button type="transfer" (click)="transfer()">Transfer</button>
 </div>

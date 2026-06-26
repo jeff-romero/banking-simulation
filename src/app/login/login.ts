@@ -22,6 +22,8 @@ export class Login implements OnInit {
   account!: Account;
   EMAIL = 'Email';
   PASSWORD = 'Password';
+  emailPlaceholder = 'Email';
+  passwordPlaceholder = 'Password';
 
   // injections
   constructor(private formBuilder:FormBuilder, private accountService:AccountService, private activatedRoute: ActivatedRoute, private router:Router) {

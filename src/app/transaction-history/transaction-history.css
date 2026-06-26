@@ -53,7 +53,10 @@ td {
     cursor: pointer;
 }
 
-.date {
-    display: flex;
-    gap: 0.3vw;
+.lightBg {
+    background-color: oklch(95.514% 0.02432 238.543);
+}
+
+.darkBg {
+    background-color: oklch(79.215% 0.04598 239.141);
 }

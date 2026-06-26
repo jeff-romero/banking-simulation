@@ -24,14 +24,14 @@ export class Transfer implements OnInit {
 
   ngOnInit() {
     this.transferLabel = 'Transfer To';
-    this.transferPlaceholder = 'Account Number';
+    this.transferPlaceholder = 'e.g. 1111111111';
 
     this.amountLabel = 'Amount';
     this.amountPlaceholder = 'Amount';
 
     this.transferForm = this.formBuilder.group({
-      accountNum: ['', [Validators.required]],
-      amount: ['', Validators.required]
+      accountNum: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
+      amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]]
     });
   }
 
@@ -40,11 +40,20 @@ export class Transfer implements OnInit {
   }
 
   transfer() {
+    this.attemptedTransfer = true;
+    console.log(`${this.formControl['accountNum'].value} ${this.formControl['amount'].value}`);
+
+    if (this.transferForm.invalid) {
+      return;
+    }
+
     this.transferService.transferFunds({ 
       accountNum: this.formControl['accountNum'].value,
-      amount: this.formControl['amount']
+      amount: this.formControl['amount'].value
     }).subscribe(() => {
-      
+
+
+      this.attemptedTransfer = false;
     });
   }
 }
