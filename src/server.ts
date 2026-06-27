@@ -13,10 +13,12 @@ app.use(cors({
   origin:[`http://localhost:4200`]
 }));
 
+// get all accounts
 app.get("/api/accounts", (req, res) => {
   res.send(sampleAccounts);
 });
 
+// login
 app.post("/api/users/login", (req, res) => {
   // destructure the request body
   const {email, password} = req.body;
@@ -32,6 +34,17 @@ app.post("/api/users/login", (req, res) => {
   }
 });
 
+// register
+app.post("/api/users/register", (req, res) => {
+
+});
+
+// delete account
+app.delete("/api/accounts/:accountNum", (req, res) => {
+
+});
+
+// get account
 app.get("/api/accounts/:accountNum", (req, res) => {
   let searchTerm = req.params.accountNum;
   const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
@@ -39,6 +52,7 @@ app.get("/api/accounts/:accountNum", (req, res) => {
   res.send(account);
 });
 
+// get transaction history
 // account may have no transactions on record, so response may be undefined as intended
 app.get("/api/transaction-history/:accountNum", (req, res) => {
   let searchTerm = req.params.accountNum;
@@ -47,6 +61,7 @@ app.get("/api/transaction-history/:accountNum", (req, res) => {
   res.send(account.transactions);
 });
 
+// filter transaction history by type (transfer, withdrawal, deposit)
 app.get("/api/transaction-history/:accountNum/filter", (req, res) => {
   let {type} = req.body;
   let searchTerm = req.params.accountNum;
@@ -58,6 +73,10 @@ app.get("/api/transaction-history/:accountNum/filter", (req, res) => {
   else {
     res.status(400).send("Invalid transaction filter type!");
   }
+});
+
+app.post("/api/transfer/:srcAccountNum", (req, res) => {
+
 });
 
 const generateTokenResponse = (account:any) => {
