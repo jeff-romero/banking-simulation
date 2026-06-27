@@ -49,7 +49,7 @@ td {
     overflow: auto;
 }
 
-.fa-sort:hover {
+i:hover {
     cursor: pointer;
 }
 
