@@ -3,31 +3,31 @@
         <th>
             <div class="thGroup">
                 <span>From</span>
-                <i class="fa fa-sort" (click)="sortSrcAccountNum()"></i>
+                <i [class]="srcAccountNumSortedBy" (click)="sortSrcAccountNum()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>To</span>
-                <i class="fa fa-sort" (click)="sortDstAccountNum()"></i>
+                <i [class]="dstAccountNumSortedBy" (click)="sortDstAccountNum()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Amount</span>
-                <i class="fa fa-sort" (click)="sortAmount()"></i>
+                <i [class]="amountSortedBy" (click)="sortAmount()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Type</span>
-                <i class="fa fa-sort" (click)="sortType()"></i>
+                <i [class]="typeSortedBy" (click)="sortType()"></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Date</span>
-                <i class="fa fa-sort" (click)="sortDate()"></i>
+                <i [class]="dateSortedBy" (click)="sortDate()"></i>
             </div>
         </th>
     </tr>
