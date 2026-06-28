@@ -42,6 +42,34 @@ export const sampleAccounts: any[] = [
                 type: 'Deposit',
                 amount: 97,
                 date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'Deposit',
+                amount: 405,
+                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'Withdrawal',
+                amount: 405,
+                date: 'Tuesday, October 23, 2023, 22:18:56 PM GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'Deposit',
+                amount: 406,
+                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
+            },
+            {
+                srcAccountNum: 5555555555,
+                dstAccountNum: 5555555555,
+                type: 'Withdrawal',
+                amount: 406,
+                date: 'Tuesday, October 23, 2023, 22:19:55 PM GMT+01:00'
             }
         ]
     },

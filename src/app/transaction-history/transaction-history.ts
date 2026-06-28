@@ -5,11 +5,13 @@ import { Transaction } from '../shared/models/transaction';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { DatePipe } from '@angular/common';
 import { AccountService } from '../services/account-service';
 
 @Component({
   selector: 'app-transaction-history',
   imports: [KeyValuePipe, AsyncPipe],
+  providers: [DatePipe],
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
@@ -27,7 +29,16 @@ export class TransactionHistory implements OnInit {
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
 
-  constructor(private transferService: TransferService, private accountService: AccountService, private router: Router) {
+  datePattern = /(?<weekday>\w+),\s+(?<month>\w+)\s+(?<day>\d{1,2}),\s+(?<year>\d{4}),\s+(?<hour>\d{1,2}):(?<minute>\d{1,2}):(?<second>\d{1,2})\s+(?<meridiem>AM|PM)\s+(?<timezone>\w+(-|\+)\d+:\d+)/;
+
+  constructor(private transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
+    let date = new Date();
+    let currDate = this.datePipe.transform(date, 'EEEE, MMMM d, y, h:mm:ss a zzzz');
+    // console.log(currDate);
+    console.log(Date.now());
+    setTimeout(() => {
+      console.log(Date.now());
+    }, 1000);
   }
 
   ngOnInit(): void {
@@ -84,6 +95,38 @@ export class TransactionHistory implements OnInit {
     return i + 1;
   }
 
+  partitionDstAccountNumAscending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      if (arr[j].dstAccountNum < pivot.dstAccountNum) {
+        i++;
+        this.swap(arr, i, j);
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
+  partitionDstAccountNumDescending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      if (arr[j].dstAccountNum > pivot.dstAccountNum) {
+        i++;
+        this.swap(arr, i, j);
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
   partitionAmountAscending(arr: Transaction[], left: number, right: number) {
     let pivot = arr[right];
 
@@ -116,6 +159,142 @@ export class TransactionHistory implements OnInit {
     return i + 1;
   }
 
+  partitionTypeAscending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      if (arr[j].type < pivot.type) {
+        i++;
+        this.swap(arr, i, j);
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
+  partitionTypeDescending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      if (arr[j].type > pivot.type) {
+        i++;
+        this.swap(arr, i, j);
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
+  partitionDateAscending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      let match1 = arr[j].date?.match(this.datePattern);
+      let match2 = pivot.date?.match(this.datePattern);
+
+      if (match1?.groups && match2?.groups) {
+        let { weekday1, month1, day1, year1, hour1, minute1, second1, meridiem1, timezone1 } = match1.groups;
+        let { weekday2, month2, day2, year2, hour2, minute2, second2, meridiem2, timezone2 } = match2.groups;
+
+        if (weekday1 < weekday2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (month1 < month2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (day1 < day2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (year1 < year2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (hour1 < hour2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (minute1 < minute2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (second1 < second2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (meridiem1 < meridiem2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
+  partitionDateDescending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      let match1 = arr[j].date?.match(this.datePattern);
+      let match2 = pivot.date?.match(this.datePattern);
+
+      if (match1?.groups && match2?.groups) {
+        let { weekday1, month1, day1, year1, hour1, minute1, second1, meridiem1, timezone1 } = match1.groups;
+        let { weekday2, month2, day2, year2, hour2, minute2, second2, meridiem2, timezone2 } = match2.groups;
+
+        if (weekday1 > weekday2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (month1 > month2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (day1 > day2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (year1 > year2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (hour1 > hour2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (minute1 > minute2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (second1 > second2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+        else if (meridiem1 > meridiem2) {
+          i++;
+          this.swap(arr, i, j);
+        }
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
   quicksort(arr: Transaction[], left: number, right: number, property: string, sortBy: string) {
     if (left < right) {
       let pivotIndex = 0;
@@ -126,13 +305,16 @@ export class TransactionHistory implements OnInit {
             pivotIndex = this.partitionSrcAccountNumAscending(arr, left, right);
             break;
           case 'dstAccountNum':
+            pivotIndex = this.partitionDstAccountNumAscending(arr, left, right);
             break;
           case 'amount':
             pivotIndex = this.partitionAmountAscending(arr, left, right);
             break;
           case 'type':
+            pivotIndex = this.partitionTypeAscending(arr, left, right);
             break;
           case 'date':
+            pivotIndex = this.partitionDateAscending(arr, left, right);
             break;
           default:
             break;
@@ -144,13 +326,16 @@ export class TransactionHistory implements OnInit {
             pivotIndex = this.partitionSrcAccountNumDescending(arr, left, right);
             break;
           case 'dstAccountNum':
+            pivotIndex = this.partitionDstAccountNumDescending(arr, left, right);
             break;
           case 'amount':
             pivotIndex = this.partitionAmountDescending(arr, left, right);
             break;
           case 'type':
+            pivotIndex = this.partitionTypeDescending(arr, left, right);
             break;
           case 'date':
+            pivotIndex = this.partitionDateDescending(arr, left, right);
             break;
           default:
             break;
@@ -167,7 +352,27 @@ export class TransactionHistory implements OnInit {
       return;
     }
 
+    if (this.srcAccountNumSortedBy == this.ASCENDING) {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'srcAccountNum', 'descending');
+      this.srcAccountNumSortedBy = this.DESCENDING;
+    }
+    else {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'srcAccountNum', 'ascending');
+      this.srcAccountNumSortedBy = this.ASCENDING;
+    }
 
+    if (this.dstAccountNumSortedBy != this.UNSORTED) {
+      this.dstAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.amountSortedBy != this.UNSORTED) {
+      this.amountSortedBy = this.UNSORTED;
+    }
+    if (this.typeSortedBy != this.UNSORTED) {
+      this.typeSortedBy = this.UNSORTED;
+    }
+    if (this.dateSortedBy != this.UNSORTED) {
+      this.dateSortedBy = this.UNSORTED;
+    }
   }
 
   sortDstAccountNum(): void {
@@ -175,7 +380,27 @@ export class TransactionHistory implements OnInit {
       return;
     }
 
+    if (this.dstAccountNumSortedBy == this.ASCENDING) {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'dstAccountNum', 'descending');
+      this.dstAccountNumSortedBy = this.DESCENDING;
+    }
+    else {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'dstAccountNum', 'ascending');
+      this.dstAccountNumSortedBy = this.ASCENDING;
+    }
 
+    if (this.srcAccountNumSortedBy != this.UNSORTED) {
+      this.srcAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.amountSortedBy != this.UNSORTED) {
+      this.amountSortedBy = this.UNSORTED;
+    }
+    if (this.typeSortedBy != this.UNSORTED) {
+      this.typeSortedBy = this.UNSORTED;
+    }
+    if (this.dateSortedBy != this.UNSORTED) {
+      this.dateSortedBy = this.UNSORTED;
+    }
   }
 
   sortAmount(): void {
@@ -211,7 +436,27 @@ export class TransactionHistory implements OnInit {
       return;
     }
 
+    if (this.typeSortedBy == this.ASCENDING) {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'type', 'descending');
+      this.typeSortedBy = this.DESCENDING;
+    }
+    else {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'type', 'ascending');
+      this.typeSortedBy = this.ASCENDING;
+    }
 
+    if (this.srcAccountNumSortedBy != this.UNSORTED) {
+      this.srcAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.dstAccountNumSortedBy != this.UNSORTED) {
+      this.dstAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.amountSortedBy != this.UNSORTED) {
+      this.amountSortedBy = this.UNSORTED;
+    }
+    if (this.dateSortedBy != this.UNSORTED) {
+      this.dateSortedBy = this.UNSORTED;
+    }
   }
 
   sortDate(): void {
@@ -219,6 +464,26 @@ export class TransactionHistory implements OnInit {
       return;
     }
 
+    if (this.dateSortedBy == this.ASCENDING) {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'date', 'descending');
+      this.dateSortedBy = this.DESCENDING;
+    }
+    else {
+      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'date', 'ascending');
+      this.dateSortedBy = this.ASCENDING;
+    }
 
+    if (this.srcAccountNumSortedBy != this.UNSORTED) {
+      this.srcAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.dstAccountNumSortedBy != this.UNSORTED) {
+      this.dstAccountNumSortedBy = this.UNSORTED;
+    }
+    if (this.amountSortedBy != this.UNSORTED) {
+      this.amountSortedBy = this.UNSORTED;
+    }
+    if (this.typeSortedBy != this.UNSORTED) {
+      this.typeSortedBy = this.UNSORTED;
+    }
   }
 }
