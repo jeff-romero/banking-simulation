@@ -13,63 +13,35 @@ export const sampleAccounts: any[] = [
                 dstAccountNum: 7429995109,
                 type: 'Transfer',
                 amount: 952,
-                date: 'Monday, June 21, 2026, 11:17:02 AM GMT+01:00'
+                date: 'Sunday, June 21, 2026, 04:17:02 GMT-07:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 1212121212,
                 type: 'Transfer',
                 amount: 20,
-                date: 'Friday, February 10, 2026, 01:26:42 AM GMT+01:00'
+                date: 'Monday, February 9, 2026, 16:26:42 GMT-08:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
                 type: 'Withdrawal',
                 amount: 1,
-                date: 'Wednesday, September 10, 2026, 14:53:47 PM GMT+01:00'
+                date: 'Wednesday, September 10, 2025, 14:53:47 GMT-07:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
                 type: 'Withdrawal',
                 amount: 8,
-                date: 'Saturday, December 25, 2025, 24:33:14 AM GMT+01:00'
+                date: 'Friday, December 26, 2025, 00:33:14 GMT-08:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
                 type: 'Deposit',
                 amount: 97,
-                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
-            },
-            {
-                srcAccountNum: 5555555555,
-                dstAccountNum: 5555555555,
-                type: 'Deposit',
-                amount: 405,
-                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
-            },
-            {
-                srcAccountNum: 5555555555,
-                dstAccountNum: 5555555555,
-                type: 'Withdrawal',
-                amount: 405,
-                date: 'Tuesday, October 23, 2023, 22:18:56 PM GMT+01:00'
-            },
-            {
-                srcAccountNum: 5555555555,
-                dstAccountNum: 5555555555,
-                type: 'Deposit',
-                amount: 406,
-                date: 'Tuesday, October 23, 2023, 22:18:55 PM GMT+01:00'
-            },
-            {
-                srcAccountNum: 5555555555,
-                dstAccountNum: 5555555555,
-                type: 'Withdrawal',
-                amount: 406,
-                date: 'Tuesday, October 23, 2023, 22:19:55 PM GMT+01:00'
+                date: 'Monday, October 23, 2023, 22:18:55 GMT-07:00'
             }
         ]
     },
@@ -88,7 +60,7 @@ export const sampleAccounts: any[] = [
                 dstAccountNum: 7429995109,
                 type: 'Transfer',
                 amount: 952,
-                date: 'Monday, June 21, 2026, 11:17:02 AM GMT+01:00'
+                date: 'Sunday, June 21, 2026, 11:17:02 GMT-07:00'
             }
         ]
     },
@@ -106,7 +78,7 @@ export const sampleAccounts: any[] = [
                 dstAccountNum: 1212121212,
                 type: 'Transfer',
                 amount: 20,
-                date: 'Friday, February 10, 2026, 14:53:47 PM GM!+01:00'
+                date: 'Tuesday, February 10, 2026, 14:53:47 GMT-08:00'
             }
         ]
     },

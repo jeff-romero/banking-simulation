@@ -32,13 +32,7 @@ export class TransactionHistory implements OnInit {
   datePattern = /(?<weekday>\w+),\s+(?<month>\w+)\s+(?<day>\d{1,2}),\s+(?<year>\d{4}),\s+(?<hour>\d{1,2}):(?<minute>\d{1,2}):(?<second>\d{1,2})\s+(?<meridiem>AM|PM)\s+(?<timezone>\w+(-|\+)\d+:\d+)/;
 
   constructor(private transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
-    let date = new Date();
-    let currDate = this.datePipe.transform(date, 'EEEE, MMMM d, y, h:mm:ss a zzzz');
-    // console.log(currDate);
-    console.log(Date.now());
-    setTimeout(() => {
-      console.log(Date.now());
-    }, 1000);
+    // this.datePipe.transform(Date.parse(str), 'EEEE, MMMM d, y, HH:mm:ss zzzz');
   }
 
   ngOnInit(): void {
@@ -197,45 +191,9 @@ export class TransactionHistory implements OnInit {
     let i = left - 1;
 
     for (let j = left; j <= right - 1; j++) {
-      let match1 = arr[j].date?.match(this.datePattern);
-      let match2 = pivot.date?.match(this.datePattern);
-
-      if (match1?.groups && match2?.groups) {
-        let { weekday1, month1, day1, year1, hour1, minute1, second1, meridiem1, timezone1 } = match1.groups;
-        let { weekday2, month2, day2, year2, hour2, minute2, second2, meridiem2, timezone2 } = match2.groups;
-
-        if (weekday1 < weekday2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (month1 < month2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (day1 < day2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (year1 < year2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (hour1 < hour2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (minute1 < minute2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (second1 < second2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (meridiem1 < meridiem2) {
-          i++;
-          this.swap(arr, i, j);
-        }
+      if (Date.parse(arr[j].date) < Date.parse(pivot.date)) {
+        i++;
+        this.swap(arr, i, j);
       }
     }
 
@@ -249,45 +207,9 @@ export class TransactionHistory implements OnInit {
     let i = left - 1;
 
     for (let j = left; j <= right - 1; j++) {
-      let match1 = arr[j].date?.match(this.datePattern);
-      let match2 = pivot.date?.match(this.datePattern);
-
-      if (match1?.groups && match2?.groups) {
-        let { weekday1, month1, day1, year1, hour1, minute1, second1, meridiem1, timezone1 } = match1.groups;
-        let { weekday2, month2, day2, year2, hour2, minute2, second2, meridiem2, timezone2 } = match2.groups;
-
-        if (weekday1 > weekday2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (month1 > month2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (day1 > day2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (year1 > year2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (hour1 > hour2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (minute1 > minute2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (second1 > second2) {
-          i++;
-          this.swap(arr, i, j);
-        }
-        else if (meridiem1 > meridiem2) {
-          i++;
-          this.swap(arr, i, j);
-        }
+      if (Date.parse(arr[j].date) > Date.parse(pivot.date)) {
+        i++;
+        this.swap(arr, i, j);
       }
     }
 
