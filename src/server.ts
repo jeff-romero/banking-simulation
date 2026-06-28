@@ -75,6 +75,7 @@ app.get("/api/transaction-history/:accountNum/filter", (req, res) => {
   }
 });
 
+// transfer money
 app.post("/api/transfer", (req, res) => {
   let { srcAccountNum, dstAccountNum, amount, type, date } = req.body;
   // console.log(`${srcAccountNum} sending $${amount} to ${dstAccountNum}`);
@@ -103,6 +104,7 @@ app.post("/api/transfer", (req, res) => {
   let found = srcAccount.transactions.find((transaction: Transaction) => transaction.dstAccountNum == dstAccountNum && transaction.amount == amount && transaction.date == date);
 
   if (found) {
+    // return the new transaction
     res.send(found);
   }
   else {

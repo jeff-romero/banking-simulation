@@ -7,6 +7,7 @@ import { Transaction } from '../shared/models/transaction';
 import { TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { AccountService } from './account-service';
 import { ITransfer } from '../shared/interfaces/ITransfer';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,11 @@ export class TransferService implements OnInit {
   transactions: Transaction[] = [];
   transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
-  constructor(private http: HttpClient, private accountService: AccountService) {
+  constructor(private http: HttpClient, private accountService: AccountService, private toastrService: ToastrService) {
+    if (!this.accountService.isAuthenticated()) {
+      return;
+    }
+
     this.accountService.accountObservable.subscribe({
       next: (account: Account) => {
         this.account = account;
@@ -25,19 +30,23 @@ export class TransferService implements OnInit {
         console.log(`Could not retrieve current account! ${errorResponse}`);
       }
     });
+  }
 
+  ngOnInit(): void {
+    this.updateTransactions();
+  }
+
+  updateTransactions() {
     this.getTransactions().subscribe({
       next: (transactions: Transaction[]) => {
+        // update internal transactions array with account transactions from the database
         this.transactions = transactions;
         this.transactionsSubject.next(this.transactions);
       },
       error: (errorResponse: any) => {
-        console.log(`Could not retrieve transaction!: ${errorResponse}`);
+        console.log(`Could not retrieve transactions!: ${errorResponse}`);
       }
     });
-  }
-
-  ngOnInit(): void {
   }
 
   get accountNumber() {
@@ -58,18 +67,21 @@ export class TransferService implements OnInit {
 
   transferFunds(transfer: ITransfer): Observable<Transaction> {
     let body = {srcAccountNum: this.accountNumber, dstAccountNum: transfer.dstAccountNum, type: transfer.type, amount: transfer.amount, date: transfer.date};
-    console.log(body);
+
     return this.http.post<Transaction>(TRANSFER_FUNDS_URL, body).pipe(
       tap({
-        next: (transaction: any) => {
+        next: (transaction: Transaction) => {
+          // when the transaction is successfully processed, update internal transactions array
           if (this.transactions) {
             this.transactions.push(transaction);
             // store updated transactions in transactionsSubject
             this.transactionsSubject.next(this.transactions);
+            this.toastrService.success(`Sent $${transaction.amount} to ${transaction.dstAccountNum}`, 'Transfer Successful');
           }
         },
         error: (errorResponse: any) => {
           console.log(errorResponse);
+          this.toastrService.error(errorResponse.error, 'Transfer failed');
         }
       })
     );

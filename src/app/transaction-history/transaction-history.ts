@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { TransferService } from '../services/transfer-service';
 import { Transaction } from '../shared/models/transaction';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { AccountService } from '../services/account-service';
 
@@ -14,10 +13,7 @@ import { AccountService } from '../services/account-service';
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
-export class TransactionHistory implements OnInit {
-  // transactions: Transaction[] = [];
-  // transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
-
+export class TransactionHistory {
   UNSORTED: string = 'fa fa-sort';
   ASCENDING: string = 'fa fa-sort-asc';
   DESCENDING: string = 'fa fa-sort-desc';
@@ -28,15 +24,10 @@ export class TransactionHistory implements OnInit {
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
 
-  constructor(protected transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
-    // this.datePipe.transform(Date.parse(str), 'EEEE, MMMM d, y, HH:mm:ss zzzz');
+  constructor(protected transferService: TransferService, private accountService: AccountService) {
     if (!this.accountService.isAuthenticated()) {
       return;
     }
-  }
-
-  ngOnInit(): void {
-    
   }
 
   swap(arr: Transaction[], i: number, j: number): void {
