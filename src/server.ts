@@ -75,8 +75,39 @@ app.get("/api/transaction-history/:accountNum/filter", (req, res) => {
   }
 });
 
-app.post("/api/transfer/:srcAccountNum", (req, res) => {
+app.post("/api/transfer", (req, res) => {
+  let { srcAccountNum, dstAccountNum, amount, type, date } = req.body;
+  // console.log(`${srcAccountNum} sending $${amount} to ${dstAccountNum}`);
+  let srcAccount = sampleAccounts.find(account => account.accountNumber == srcAccountNum);
+  let dstAccount = sampleAccounts.find(account => account.accountNumber == dstAccountNum);
 
+  if (!srcAccount.transactions) {
+    srcAccount.transactions = [];
+  }
+
+  if (!dstAccount.transactions) {
+    dstAccount.transactions = [];
+  }
+
+  let newTransaction = {
+    srcAccountNum: srcAccountNum,
+    dstAccountNum: dstAccountNum,
+    type: type,
+    amount: amount,
+    date: date
+  };
+
+  srcAccount.transactions.push(newTransaction);
+  dstAccount.transactions.push(newTransaction);
+
+  let found = srcAccount.transactions.find((transaction: Transaction) => transaction.dstAccountNum == dstAccountNum && transaction.amount == amount && transaction.date == date);
+
+  if (found) {
+    res.send(found);
+  }
+  else {
+    res.status(400).send('Could not process transaction!');
+  }
 });
 
 const generateTokenResponse = (account:any) => {

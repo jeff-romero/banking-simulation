@@ -52,6 +52,9 @@ When the user successfully logs in with the correct credentials, a toast notific
 Progress update of the fund transfer page, which dynamically populates transaction history received from the backend API (As of June 24, 2026).
 ![image](public/transferPageProgressJune24.png)
 
+Progress update of successful fund transfer to a valid destination account (As of June 27, 2026).
+![image](public/transferAndUpdateHistory.png)
+
 Postman successful response to GET request searching for an account by its account number.
 ![image](public/searchAccountByNum.png)
 

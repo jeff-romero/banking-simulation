@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { Account } from '../shared/models/account';
 import { Transaction } from '../shared/models/transaction';
@@ -13,6 +13,8 @@ import { ITransfer } from '../shared/interfaces/ITransfer';
 })
 export class TransferService implements OnInit {
   account!: Account;
+  transactions: Transaction[] = [];
+  transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
   constructor(private http: HttpClient, private accountService: AccountService) {
     this.accountService.accountObservable.subscribe({
@@ -21,6 +23,16 @@ export class TransferService implements OnInit {
       },
       error: (errorResponse: any) => {
         console.log(`Could not retrieve current account! ${errorResponse}`);
+      }
+    });
+
+    this.getTransactions().subscribe({
+      next: (transactions: Transaction[]) => {
+        this.transactions = transactions;
+        this.transactionsSubject.next(this.transactions);
+      },
+      error: (errorResponse: any) => {
+        console.log(`Could not retrieve transaction!: ${errorResponse}`);
       }
     });
   }
@@ -32,6 +44,10 @@ export class TransferService implements OnInit {
     return this.account.accountNumber;
   }
 
+  get transactionsSub() {
+    return this.transactionsSubject;
+  }
+
   getTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.account.accountNumber);
   }
@@ -41,12 +57,16 @@ export class TransferService implements OnInit {
   }
 
   transferFunds(transfer: ITransfer): Observable<Transaction> {
-    let body = {srcAccountNum: this.accountNumber, dstAccountNum: transfer.accountNum, amount: transfer.amount};
+    let body = {srcAccountNum: this.accountNumber, dstAccountNum: transfer.dstAccountNum, type: transfer.type, amount: transfer.amount, date: transfer.date};
     console.log(body);
     return this.http.post<Transaction>(TRANSFER_FUNDS_URL, body).pipe(
       tap({
         next: (transaction: any) => {
-          console.log(transaction);
+          if (this.transactions) {
+            this.transactions.push(transaction);
+            // store updated transactions in transactionsSubject
+            this.transactionsSubject.next(this.transactions);
+          }
         },
         error: (errorResponse: any) => {
           console.log(errorResponse);

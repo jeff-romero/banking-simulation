@@ -3,10 +3,12 @@ import { InputContainer } from '../partials/input-container/input-container';
 import { TextInput } from '../partials/text-input/text-input';
 import { FormGroup, ReactiveFormsModule, Validators, FormBuilder } from '@angular/forms';
 import { TransferService } from '../services/transfer-service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transfer',
   imports: [InputContainer, TextInput, ReactiveFormsModule],
+  providers: [DatePipe],
   templateUrl: './transfer.html',
   styleUrl: './transfer.css',
 })
@@ -18,7 +20,7 @@ export class Transfer implements OnInit {
   transferForm!:FormGroup;
   attemptedTransfer: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private transferService: TransferService) {
+  constructor(private formBuilder: FormBuilder, private transferService: TransferService, private datePipe: DatePipe) {
     
   }
 
@@ -41,15 +43,20 @@ export class Transfer implements OnInit {
 
   transfer() {
     this.attemptedTransfer = true;
-    console.log(`${this.formControl['accountNum'].value} ${this.formControl['amount'].value}`);
 
     if (this.transferForm.invalid) {
       return;
     }
 
+    let date = new Date();
+    let dateStr = this.datePipe.transform(date, 'EEEE, MMMM d, y, HH:mm:ss zzzz');
+
     this.transferService.transferFunds({ 
-      accountNum: this.formControl['accountNum'].value,
-      amount: this.formControl['amount'].value
+      srcAccountNum: this.transferService.accountNumber,
+      dstAccountNum: parseInt(this.formControl['accountNum'].value),
+      type: 'Transfer',
+      amount: parseInt(this.formControl['amount'].value),
+      date: dateStr!
     }).subscribe(() => {
 
 

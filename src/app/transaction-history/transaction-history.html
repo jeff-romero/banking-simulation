@@ -31,7 +31,7 @@
             </div>
         </th>
     </tr>
-    @for (transaction of (transactionsSubject | async); track $index) {
+    @for (transaction of (transferService.transactionsSub | async); track $index) {
         @if ($index % 2 == 0) {
             <tr class="darkBg">
                 <td>{{ transaction.srcAccountNum }}</td>

@@ -15,8 +15,8 @@ import { AccountService } from '../services/account-service';
   styleUrl: './transaction-history.css',
 })
 export class TransactionHistory implements OnInit {
-  transactions: Transaction[] = [];
-  transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
+  // transactions: Transaction[] = [];
+  // transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
   UNSORTED: string = 'fa fa-sort';
   ASCENDING: string = 'fa fa-sort-asc';
@@ -28,24 +28,15 @@ export class TransactionHistory implements OnInit {
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
 
-  constructor(private transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
+  constructor(protected transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
     // this.datePipe.transform(Date.parse(str), 'EEEE, MMMM d, y, HH:mm:ss zzzz');
-  }
-
-  ngOnInit(): void {
     if (!this.accountService.isAuthenticated()) {
       return;
     }
+  }
 
-    this.transferService.getTransactions().subscribe({
-      next: (transactions: Transaction[]) => {
-        this.transactions = transactions;
-        this.transactionsSubject.next(this.transactions);
-      },
-      error: (errorResponse: any) => {
-        console.log(`Could not retrieve transaction!: ${errorResponse}`);
-      }
-    });
+  ngOnInit(): void {
+    
   }
 
   swap(arr: Transaction[], i: number, j: number): void {
@@ -267,16 +258,16 @@ export class TransactionHistory implements OnInit {
   }
 
   sortSrcAccountNum(): void {
-    if (!this.transactions || this.transactions.length == 0) {
+    if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
       return;
     }
 
     if (this.srcAccountNumSortedBy == this.ASCENDING) {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'srcAccountNum', 'descending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'srcAccountNum', 'descending');
       this.srcAccountNumSortedBy = this.DESCENDING;
     }
     else {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'srcAccountNum', 'ascending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'srcAccountNum', 'ascending');
       this.srcAccountNumSortedBy = this.ASCENDING;
     }
 
@@ -295,16 +286,16 @@ export class TransactionHistory implements OnInit {
   }
 
   sortDstAccountNum(): void {
-    if (!this.transactions || this.transactions.length == 0) {
+    if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
       return;
     }
 
     if (this.dstAccountNumSortedBy == this.ASCENDING) {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'dstAccountNum', 'descending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'dstAccountNum', 'descending');
       this.dstAccountNumSortedBy = this.DESCENDING;
     }
     else {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'dstAccountNum', 'ascending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'dstAccountNum', 'ascending');
       this.dstAccountNumSortedBy = this.ASCENDING;
     }
 
@@ -323,16 +314,16 @@ export class TransactionHistory implements OnInit {
   }
 
   sortAmount(): void {
-    if (!this.transactions || this.transactions.length == 0) {
+    if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
       return;
     }
 
     if (this.amountSortedBy == this.ASCENDING) {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'amount', 'descending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'amount', 'descending');
       this.amountSortedBy = this.DESCENDING;
     }
     else {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'amount', 'ascending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'amount', 'ascending');
       this.amountSortedBy = this.ASCENDING;
     }
 
@@ -351,16 +342,16 @@ export class TransactionHistory implements OnInit {
   }
 
   sortType(): void {
-    if (!this.transactions || this.transactions.length == 0) {
+    if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
       return;
     }
 
     if (this.typeSortedBy == this.ASCENDING) {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'type', 'descending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'type', 'descending');
       this.typeSortedBy = this.DESCENDING;
     }
     else {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'type', 'ascending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'type', 'ascending');
       this.typeSortedBy = this.ASCENDING;
     }
 
@@ -379,16 +370,16 @@ export class TransactionHistory implements OnInit {
   }
 
   sortDate(): void {
-    if (!this.transactions || this.transactions.length == 0) {
+    if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
       return;
     }
 
     if (this.dateSortedBy == this.ASCENDING) {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'date', 'descending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'date', 'descending');
       this.dateSortedBy = this.DESCENDING;
     }
     else {
-      this.quicksort(this.transactions, 0, this.transactions.length - 1, 'date', 'ascending');
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'date', 'ascending');
       this.dateSortedBy = this.ASCENDING;
     }
 

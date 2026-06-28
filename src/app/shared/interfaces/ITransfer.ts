@@ -1,4 +1,7 @@
 export interface ITransfer {
-    accountNum: any;
-    amount: any;
+    srcAccountNum: number;
+    dstAccountNum: number;
+    type: string;
+    amount: number;
+    date: string;
 }
