@@ -9,11 +9,8 @@ import { ToastrModule } from 'ngx-toastr';
 @Component({
   selector: 'app-root',
   imports: [
-    RouterLink,
     RouterOutlet,
     Navigation,
-    Home,
-    Login,
     ReactiveFormsModule
   ],
   templateUrl: './app.html',

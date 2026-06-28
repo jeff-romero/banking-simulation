@@ -6,11 +6,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Account } from '../shared/models/account';
 import { TextInput } from '../partials/text-input/text-input';
-import { InputContainer } from '../partials/input-container/input-container';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, TextInput, InputContainer],
+  imports: [ReactiveFormsModule, TextInput],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

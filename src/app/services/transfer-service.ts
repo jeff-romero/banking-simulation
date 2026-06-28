@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class TransferService implements OnInit {
-  account!: Account;
+  // account!: Account;
   transactions: Transaction[] = [];
   transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
@@ -22,14 +22,16 @@ export class TransferService implements OnInit {
       return;
     }
 
-    this.accountService.accountObservable.subscribe({
-      next: (account: Account) => {
-        this.account = account;
-      },
-      error: (errorResponse: any) => {
-        console.log(`Could not retrieve current account! ${errorResponse}`);
-      }
-    });
+    // this.accountService.accountObservable.subscribe({
+    //   next: (account: Account) => {
+    //     this.account = account;
+    //   },
+    //   error: (errorResponse: any) => {
+    //     console.log(`Could not retrieve current account! ${errorResponse}`);
+    //   }
+    // });
+  
+    this.updateTransactions();
   }
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class TransferService implements OnInit {
   }
 
   get accountNumber() {
-    return this.account.accountNumber;
+    return this.accountService.getAccountFromLocalStorage().accountNumber;
   }
 
   get transactionsSub() {
@@ -58,7 +60,7 @@ export class TransferService implements OnInit {
   }
 
   getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.account.accountNumber);
+    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.accountNumber);
   }
 
   getTransactionsByType(accountNum: number): Observable<Transaction[]> {

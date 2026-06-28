@@ -1,11 +1,11 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, OnInit, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AccountService } from '../services/account-service';
 import { Account } from '../shared/models/account';
 
 @Component({
   selector: 'app-navigation',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterLink],
   templateUrl: './navigation.html',
   styleUrl: './navigation.css',
 })

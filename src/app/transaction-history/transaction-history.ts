@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 
 import { TransferService } from '../services/transfer-service';
 import { Transaction } from '../shared/models/transaction';
-import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { AccountService } from '../services/account-service';
 
 @Component({
   selector: 'app-transaction-history',
-  imports: [KeyValuePipe, AsyncPipe],
+  imports: [AsyncPipe],
   providers: [DatePipe],
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',

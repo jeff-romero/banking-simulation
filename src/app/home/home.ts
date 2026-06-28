@@ -11,14 +11,9 @@ import { TransferService } from '../services/transfer-service';
   styleUrl: './home.css',
 })
 export class Home {
-  accounts: Account[] = [];
-
   constructor(private accountService: AccountService, private transferService: TransferService) {
-    let accountsObservable:Observable<Account[]> = accountService.getAll();
-
-    accountsObservable.subscribe((serverAccounts) => {
-      this.accounts = serverAccounts;
+    this.accountService.accountObservable.subscribe(() => {
+      this.transferService.updateTransactions();
     });
-    this.transferService.updateTransactions();
   }
 }

@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transfer',
-  imports: [InputContainer, TextInput, ReactiveFormsModule],
+  imports: [TextInput, ReactiveFormsModule],
   providers: [DatePipe],
   templateUrl: './transfer.html',
   styleUrl: './transfer.css',

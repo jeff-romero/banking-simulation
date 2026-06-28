@@ -87,7 +87,7 @@ export class AccountService {
     localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
   }
 
-  private getAccountFromLocalStorage(): Account {
+  getAccountFromLocalStorage(): Account {
     const accountJson = localStorage.getItem(ACCOUNT_KEY);
 
     if (accountJson) {
