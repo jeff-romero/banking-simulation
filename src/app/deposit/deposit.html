@@ -1,0 +1,4 @@
+<div class="componentWrapper" [formGroup]="depositForm">
+  <text-input [label]="amountLabel" [placeholder]="amountPlaceholder" type="amount" [control]="formControl['amount']" [showErrors]="attemptedDeposit"></text-input>
+  <button type="deposit" (click)="deposit()">Deposit</button>
+</div>

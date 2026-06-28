@@ -23,24 +23,21 @@ export class Navigation implements OnInit {
   logInStatusIcon = this.LOCK_ICON;
   @Output() loggedIn:boolean = false;
   account!: Account;
+  accountName: string = '';
 
   constructor(private accountService: AccountService) {
-    // let checkingSavingsDropdown = document.getElementById('checking-savings-dropdown') as HTMLSpanElement;
-    // checkingSavingsDropdown.addEventListener("mouseover", (e) => {
-
-    // });
-    this.accountService.accountObservable.subscribe((newAccount) => {
-      this.account = newAccount;
-
-      if (this.isAuthenticated) {
-        this.loggedIn = true;
+    this.accountService.accountObservable.subscribe({
+      next: (account: Account) => {
+        this.account = account;
+        this.accountName = this.account.firstName;
+      },
+      error: (errorResponse: any) => {
+        console.log(errorResponse);
       }
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   logOut() {
     this.accountService.logOut();
