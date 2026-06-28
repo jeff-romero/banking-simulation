@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { TransferService } from '../services/transfer-service';
 import { Transaction } from '../shared/models/transaction';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
-import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { AccountService } from '../services/account-service';
@@ -28,8 +27,6 @@ export class TransactionHistory implements OnInit {
   amountSortedBy: string = this.UNSORTED;
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
-
-  datePattern = /(?<weekday>\w+),\s+(?<month>\w+)\s+(?<day>\d{1,2}),\s+(?<year>\d{4}),\s+(?<hour>\d{1,2}):(?<minute>\d{1,2}):(?<second>\d{1,2})\s+(?<meridiem>AM|PM)\s+(?<timezone>\w+(-|\+)\d+:\d+)/;
 
   constructor(private transferService: TransferService, private accountService: AccountService, private datePipe: DatePipe) {
     // this.datePipe.transform(Date.parse(str), 'EEEE, MMMM d, y, HH:mm:ss zzzz');

@@ -26,15 +26,15 @@ export const sampleAccounts: any[] = [
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
                 type: 'Withdrawal',
-                amount: 1,
-                date: 'Wednesday, September 10, 2025, 14:53:47 GMT-07:00'
+                amount: 8,
+                date: 'Friday, December 26, 2025, 00:33:14 GMT-08:00'
             },
             {
                 srcAccountNum: 5555555555,
                 dstAccountNum: 5555555555,
                 type: 'Withdrawal',
-                amount: 8,
-                date: 'Friday, December 26, 2025, 00:33:14 GMT-08:00'
+                amount: 1,
+                date: 'Wednesday, September 10, 2025, 14:53:47 GMT-07:00'
             },
             {
                 srcAccountNum: 5555555555,
@@ -60,7 +60,7 @@ export const sampleAccounts: any[] = [
                 dstAccountNum: 7429995109,
                 type: 'Transfer',
                 amount: 952,
-                date: 'Sunday, June 21, 2026, 11:17:02 GMT-07:00'
+                date: 'Sunday, June 21, 2026, 04:17:02 GMT-07:00'
             }
         ]
     },
