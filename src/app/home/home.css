@@ -23,14 +23,14 @@
     background-color: oklch(77.821% 0.01139 16.975);
     padding: 1vw;
     gap: 0.5vw;
-    width: 25vw;
+    width: 75%;
     overflow: auto;
     border-radius: 1.5vw;
 }
 
 @media screen and (max-width: 899px) {
     .widget {
-        width: 50vw;
+        width: 90dvw;
     }
 }
 
