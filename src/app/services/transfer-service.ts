@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { Account } from '../shared/models/account';
 import { Transaction } from '../shared/models/transaction';
-import { TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
+import { CHECKING_BALANCE_URL, TRANSACTION_HISTORY_URL, TRANSFER_FUNDS_URL } from '../shared/constants/urls';
 import { AccountService } from './account-service';
 import { ITransfer } from '../shared/interfaces/ITransfer';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class TransferService implements OnInit {
   // account!: Account;
+  checkingBalance: number = 0;
+  checkingBalanceSubject = new BehaviorSubject<number>(this.checkingBalance);
   transactions: Transaction[] = [];
   transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
 
@@ -31,11 +33,26 @@ export class TransferService implements OnInit {
     //   }
     // });
   
+    this.updateCheckingBalance();
     this.updateTransactions();
   }
 
   ngOnInit(): void {
+    this.updateCheckingBalance();
     this.updateTransactions();
+  }
+
+  updateCheckingBalance() {
+    this.getCheckingBalance().subscribe({
+      next: (checkingBalance: number) => {
+        console.log(`Retrieved checking balance: ${checkingBalance}`);
+        this.checkingBalance = checkingBalance;
+        this.checkingBalanceSubject.next(this.checkingBalance);
+      },
+      error: (errorResponse: any) => {
+        console.log(`Service could not retrieve checking balance! ${errorResponse}`);
+      }
+    });
   }
 
   updateTransactions() {
@@ -57,6 +74,11 @@ export class TransferService implements OnInit {
 
   get transactionsSub() {
     return this.transactionsSubject;
+  }
+
+  getCheckingBalance(): Observable<number> {
+    let accountNum = this.accountNumber;
+    return this.http.get<number>(CHECKING_BALANCE_URL + '/' + accountNum);
   }
 
   getTransactions(): Observable<Transaction[]> {

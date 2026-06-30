@@ -52,6 +52,14 @@ app.get("/api/accounts/:accountNum", (req, res) => {
   res.send(account);
 });
 
+// get checking balance
+app.get("/api/checking/:accountNum", (req, res) => {
+  let accountNum = req.params.accountNum;
+  const account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
+
+  res.send(account.checkingBalance);
+});
+
 // get transaction history
 // account may have no transactions on record, so response may be undefined as intended
 app.get("/api/transaction-history/:accountNum", (req, res) => {

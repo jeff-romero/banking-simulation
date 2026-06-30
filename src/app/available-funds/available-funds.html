@@ -1,1 +1,7 @@
-<p>available-funds works!</p>
+<div class="componentWrapper">
+    <span>Available Funds</span>
+    <hr>
+    @if ((transferService.checkingBalanceSubject | async); as checkingBalance) {
+        <span>{{ checkingBalance }}</span>
+    }
+</div>
