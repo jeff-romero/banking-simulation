@@ -1,4 +1,16 @@
 hr {
     width: 100%;
-    color: rgb(131, 131, 131);
+    color: oklch(100% 0.00011 271.152);
+}
+
+.availableFunds {
+    background-color: rgb(180, 180, 180);
+}
+
+.positive {
+    color: oklch(75.797% 0.24484 140.708);
+}
+
+.negative {
+    color: oklch(62.793% 0.25768 29.223);
 }
