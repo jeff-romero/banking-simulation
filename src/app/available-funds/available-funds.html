@@ -1,10 +1,9 @@
-<div class="componentWrapper availableFunds">
+<div class="availableFunds">
     <span>Available Funds</span>
-    <hr>
     @if ((transferService.checkingBalanceSubject | async); as checkingBalance) {
-        <span>{{ checkingBalance }}</span>
+        <span>${{ checkingBalance }}</span>
     }
     @else {
-        <span>0</span>
+        <span>$0</span>
     }
 </div>

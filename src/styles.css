@@ -55,9 +55,10 @@ body {
     gap: 1vw;
     justify-content: center;
     align-items: center;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
-    padding: 1vw;
+    /* padding: 1vw; */
+    padding-block: 1vw;
     background-color: oklch(69.137% 0.14686 247.021);
 }
 
