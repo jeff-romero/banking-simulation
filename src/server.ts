@@ -102,7 +102,7 @@ app.post("/api/transfer", (req, res) => {
     srcAccount.transactions = [];
   }
 
-  if (!dstAccount.transactions) {
+  if (dstAccount !== srcAccount && !dstAccount.transactions) {
     dstAccount.transactions = [];
   }
 
@@ -115,7 +115,9 @@ app.post("/api/transfer", (req, res) => {
   };
 
   srcAccount.transactions.push(newTransaction);
-  dstAccount.transactions.push(newTransaction);
+  if (dstAccount !== srcAccount) {
+    dstAccount.transactions.push(newTransaction);
+  }
 
   let found = srcAccount.transactions.find((transaction: Transaction) => transaction.dstAccountNum == dstAccountNum && transaction.amount == amount && transaction.date == date);
 
