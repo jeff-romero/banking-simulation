@@ -119,9 +119,18 @@ app.post("/api/transfer", (req, res) => {
     dstAccount.transactions.push(newTransaction);
   }
 
+  // verify the new transaction was appended to the source account's transaction history
   let found = srcAccount.transactions.find((transaction: Transaction) => transaction.dstAccountNum == dstAccountNum && transaction.amount == amount && transaction.date == date);
 
   if (found) {
+    if (dstAccount !== srcAccount) {
+      srcAccount.checkingBalance -= amount;
+      // console.log(`new balance of src acc: ${srcAccount.checkingBalance}`)
+    }
+
+    dstAccount.checkingBalance += amount;
+    // console.log(`new balance of dst acc: ${dstAccount.checkingBalance}`);
+
     // return the new transaction
     res.send(found);
   }
