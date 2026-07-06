@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { Account } from '../shared/models/account';
@@ -18,6 +18,7 @@ export class TransferService implements OnInit {
   checkingBalanceSubject = new BehaviorSubject<number>(this.checkingBalance);
   transactions: Transaction[] = [];
   transactionsSubject = new BehaviorSubject<Transaction[]>(this.transactions);
+  type?: string;
 
   constructor(private http: HttpClient, private accountService: AccountService, private toastrService: ToastrService) {
     if (!this.accountService.isAuthenticated()) {
@@ -34,12 +35,12 @@ export class TransferService implements OnInit {
     // });
   
     this.updateCheckingBalance();
-    this.updateTransactions();
+    this.updateTransactions(this.type);
   }
 
   ngOnInit(): void {
     this.updateCheckingBalance();
-    this.updateTransactions();
+    this.updateTransactions(this.type);
   }
 
   updateCheckingBalance() {
@@ -55,8 +56,9 @@ export class TransferService implements OnInit {
     });
   }
 
-  updateTransactions() {
-    this.getTransactions().subscribe({
+  updateTransactions(type?: string) {
+    console.log(`updateTransactions: ${type}`);
+    this.getTransactions(type).subscribe({
       next: (transactions: Transaction[]) => {
         // update internal transactions array with account transactions from the database
         this.transactions = transactions;
@@ -81,12 +83,20 @@ export class TransferService implements OnInit {
     return this.http.get<number>(CHECKING_BALANCE_URL + '/' + accountNum);
   }
 
-  getTransactions(): Observable<Transaction[]> {
+  getTransactions(type?: string): Observable<Transaction[]> {
+    // get transactions by type
+    if (type && type.length > 0) {
+      console.log(`getTransactions: ${type}`);
+      return this.getTransactionsByType(type);
+    }
+
+    // get all transactions
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.accountNumber);
   }
 
-  getTransactionsByType(accountNum: number): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + accountNum + '/filter');
+  getTransactionsByType(type: string): Observable<Transaction[]> {
+    let body = {type: type};
+    return this.http.post<Transaction[]>(TRANSACTION_HISTORY_URL + this.accountNumber + '/filter', body);
   }
 
   transferFunds(transfer: ITransfer): Observable<Transaction> {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { TransferService } from '../services/transfer-service';
 import { Transaction } from '../shared/models/transaction';
@@ -13,7 +13,7 @@ import { AccountService } from '../services/account-service';
   templateUrl: './transaction-history.html',
   styleUrl: './transaction-history.css',
 })
-export class TransactionHistory {
+export class TransactionHistory implements OnInit {
   UNSORTED: string = 'fa fa-sort';
   ASCENDING: string = 'fa fa-sort-asc';
   DESCENDING: string = 'fa fa-sort-desc';
@@ -24,10 +24,16 @@ export class TransactionHistory {
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
 
+  @Input() type?:string;
+
   constructor(protected transferService: TransferService, private accountService: AccountService) {
     if (!this.accountService.isAuthenticated()) {
       return;
     }
+  }
+
+  ngOnInit(): void {
+    this.transferService.updateTransactions(this.type);
   }
 
   swap(arr: Transaction[], i: number, j: number): void {

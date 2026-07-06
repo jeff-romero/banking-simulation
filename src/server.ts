@@ -78,13 +78,13 @@ app.get("/api/transaction-history/:accountNum", (req, res) => {
 });
 
 // filter transaction history by type (transfer, withdrawal, deposit)
-app.get("/api/transaction-history/:accountNum/filter", (req, res) => {
+app.post("/api/transaction-history/:accountNum/filter", (req, res) => {
   let {type} = req.body;
   let searchTerm = req.params.accountNum;
   const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
 
   if (account.transactions) {
-    res.send(account.transactions.filter((transaction: Transaction) => transaction.type == type));
+    res.send(account.transactions.filter((transaction: Transaction) => transaction.type === type));
   }
   else {
     res.status(400).send("Invalid transaction filter type!");
@@ -137,6 +137,14 @@ app.post("/api/transfer", (req, res) => {
   else {
     res.status(400).send('Could not process transaction!');
   }
+});
+
+app.post("/api/withdraw", (req, res) => {
+
+});
+
+app.post("/api/deposit", (req, res) => {
+
 });
 
 const generateTokenResponse = (account:any) => {
