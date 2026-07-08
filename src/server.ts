@@ -147,6 +147,10 @@ app.post("/api/deposit", (req, res) => {
 
 });
 
+app.get("/api/get", (req, res) => {
+
+});
+
 const generateTokenResponse = (account:any) => {
   const token = jwt.sign({
     email:account.email
