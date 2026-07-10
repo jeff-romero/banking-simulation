@@ -140,7 +140,37 @@ app.post("/api/transfer", (req, res) => {
 });
 
 app.post("/api/withdraw", (req, res) => {
+  let { srcAccountNum, dstAccountNum, amount, type, date } = req.body;
+  // console.log(`${srcAccountNum} sending $${amount} to ${dstAccountNum}`);
+  let srcAccount = sampleAccounts.find(account => account.accountNumber == srcAccountNum);
 
+  if (!srcAccount.transactions) {
+    srcAccount.transactions = [];
+  }
+
+  let newTransaction = {
+    srcAccountNum: srcAccountNum,
+    dstAccountNum: dstAccountNum,
+    type: type,
+    amount: amount,
+    date: date
+  };
+
+  srcAccount.transactions.push(newTransaction);
+
+  // verify the new transaction was appended to the source account's transaction history
+  let found = srcAccount.transactions.find((transaction: Transaction) => transaction.srcAccountNum == srcAccountNum && transaction.amount == amount && transaction.date == date);
+
+  if (found) {
+    srcAccount.checkingBalance -= amount;
+    // console.log(`new balance of acc after withdrawal: ${srcAccount.checkingBalance}`);
+
+    // return the new transaction
+    res.send(found);
+  }
+  else {
+    res.status(400).send('Could not process transaction!');
+  }
 });
 
 app.post("/api/deposit", (req, res) => {
