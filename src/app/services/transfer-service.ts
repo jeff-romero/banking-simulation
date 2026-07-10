@@ -120,4 +120,12 @@ export class TransferService implements OnInit {
       })
     );
   }
+
+  withdrawFunds() {
+
+  }
+
+  depositFunds() {
+    
+  }
 }
