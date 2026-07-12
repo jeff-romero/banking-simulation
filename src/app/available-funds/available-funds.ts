@@ -17,6 +17,6 @@ export class AvailableFunds implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.transferService.updateCheckingBalance();
   }
 }

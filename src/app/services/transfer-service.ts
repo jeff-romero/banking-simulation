@@ -13,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root',
 })
 export class TransferService implements OnInit {
-  // account!: Account;
   checkingBalance: number = 0;
   checkingBalanceSubject = new BehaviorSubject<number>(this.checkingBalance);
   transactions: Transaction[] = [];
@@ -25,15 +24,6 @@ export class TransferService implements OnInit {
       return;
     }
 
-    // this.accountService.accountObservable.subscribe({
-    //   next: (account: Account) => {
-    //     this.account = account;
-    //   },
-    //   error: (errorResponse: any) => {
-    //     console.log(`Could not retrieve current account! ${errorResponse}`);
-    //   }
-    // });
-  
     this.updateCheckingBalance();
     this.updateTransactions(this.type);
   }
@@ -48,7 +38,7 @@ export class TransferService implements OnInit {
       next: (checkingBalance: number) => {
         console.log(`Retrieved checking balance: ${checkingBalance}`);
         this.checkingBalance = checkingBalance;
-        this.checkingBalanceSubject.next(this.checkingBalance);
+        this.checkingBalanceSubject.next(checkingBalance);
       },
       error: (errorResponse: any) => {
         console.log(`Service could not retrieve checking balance! ${errorResponse}`);
@@ -57,7 +47,6 @@ export class TransferService implements OnInit {
   }
 
   updateTransactions(type?: string) {
-    console.log(`updateTransactions: ${type}`);
     this.getTransactions(type).subscribe({
       next: (transactions: Transaction[]) => {
         // update internal transactions array with account transactions from the database
@@ -86,7 +75,6 @@ export class TransferService implements OnInit {
   getTransactions(type?: string): Observable<Transaction[]> {
     // get transactions by type
     if (type && type.length > 0) {
-      console.log(`getTransactions: ${type}`);
       return this.getTransactionsByType(type);
     }
 
@@ -111,6 +99,7 @@ export class TransferService implements OnInit {
             // store updated transactions in transactionsSubject
             this.transactionsSubject.next(this.transactions);
             this.toastrService.success(`Sent $${transaction.amount} to ${transaction.dstAccountNum}`, 'Transfer Successful');
+            this.updateCheckingBalance();
           }
         },
         error: (errorResponse: any) => {
