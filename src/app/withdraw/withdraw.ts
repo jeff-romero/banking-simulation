@@ -45,7 +45,7 @@ export class Withdraw implements OnInit {
     this.transferService.transferFunds({
       srcAccountNum: this.transferService.accountNumber,
       dstAccountNum: this.transferService.accountNumber,
-      type: 'Deposit',
+      type: 'Withdrawal',
       amount: parseInt(this.formControl['amount'].value),
       date: dateStr!
     }).subscribe(() => {

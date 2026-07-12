@@ -10,5 +10,5 @@ import { Withdraw } from '../withdraw/withdraw';
   styleUrl: './withdraw-funds.css',
 })
 export class WithdrawFunds {
-  @Output() type: string = 'Deposit';
+  @Output() type: string = 'Withdrawal';
 }

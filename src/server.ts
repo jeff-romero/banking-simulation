@@ -128,7 +128,14 @@ app.post("/api/transfer", (req, res) => {
       // console.log(`new balance of src acc: ${srcAccount.checkingBalance}`)
     }
 
-    dstAccount.checkingBalance += amount;
+    if (type == 'Transfer' || type == 'Deposit') {
+      dstAccount.checkingBalance += amount;
+    }
+
+    if (type == 'Withdrawal') {
+      dstAccount.checkingBalance -= amount;
+    }
+
     // console.log(`new balance of dst acc: ${dstAccount.checkingBalance}`);
 
     // return the new transaction
