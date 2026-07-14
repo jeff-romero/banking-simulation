@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     background-color: oklch(51.431% 0.14417 250.924);
-    height: 100dvh;
+    height: 100%;
     /* padding: 2vw; */
     align-items: center;
 }

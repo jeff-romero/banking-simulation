@@ -1,0 +1,24 @@
+<div class="widget">
+  <h2>{{ date }} - Patch Notes</h2>
+  <hr>
+  @if (newFeatures) {
+    <h3>New Features</h3>
+    <ul>
+      @for (item of newFeatures; track $index) {
+        <li>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  }
+  @if (bugFixes) {
+    <h3>Bug Fixes</h3>
+    <ul>
+      @for (item of bugFixes; track $index) {
+        <li>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  }
+</div>
