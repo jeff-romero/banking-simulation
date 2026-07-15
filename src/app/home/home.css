@@ -1,33 +1,18 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-}
-
 .homeWrapper {
     display: flex;
     flex-direction: column;
     gap: 1vw;
     padding: 1vw;
-}
-
-.widget-collection {
-    /* background-color: grey; */
-    display: grid;
-    grid-auto-columns: max-content;
-    border-radius: 1vw;
-    padding: 1vw;
-    justify-content: space-between;
-    gap: 2vw;
-    justify-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: oklch(51.431% 0.14417 250.924);
 }
 
 h2 {
     align-self: center;
 }
 
-.widget {
+/* .widget {
     display: flex;
     flex-direction: column;
     background-color: oklch(77.821% 0.01139 16.975);
@@ -36,13 +21,13 @@ h2 {
     width: 75%;
     overflow: auto;
     border-radius: 1.5vw;
-}
+} */
 
-@media screen and (max-width: 899px) {
+/* @media screen and (max-width: 899px) {
     .widget {
         width: 90dvw;
     }
-}
+} */
 
 hr {
     width: 100%;
