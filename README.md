@@ -2,7 +2,7 @@
 
 ## Summary
 
-Building a full-stack banking application which supports fund transfers, account creation and management, deposits, and withdrawals.
+Building a full-stack banking application which supports fund transfers, account creation and management, deposits, withdrawals, and fund transfers between accounts.
 
 ## Tech Stack
 
@@ -13,6 +13,32 @@ Building a full-stack banking application which supports fund transfers, account
 - MongoDB
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
+
+## Screenshots
+
+Preview of the home page after successfully logging in. (Progress update as of July 11, 2026)
+![image](public/home-page-july-15-2026.png)
+
+When the user successfully logs in with the correct credentials, a toast notification will pop up on the screen.
+![image](public/login-toast.png)
+
+Progress update of the fund transfer page, which dynamically populates transaction history received from the backend API (As of July 15, 2026).
+![image](public/transaction-history-july-15-2026.png)
+
+Progress update of successful fund transfer to a valid destination account (As of June 27, 2026).
+![image](public/transferAndUpdateHistory.png)
+
+Withdraw page progress update (As of July 15, 2026).
+![image](public/withdraw-july-15-2026.png)
+
+Deposit page progress update (As of July 15, 2026).
+![image](public/deposit-july-15-2026.png)
+
+Postman successful response to GET request searching for an account by its account number.
+![image](public/searchAccountByNum.png)
+
+Postman successful response to GET request retrieving only withdrawals.
+![image](public/filterTransactionByType.png)
 
 ## Development server
 
@@ -40,26 +66,6 @@ Generate a secret key and export it from the `credentials.ts` file:
     ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Screenshots
-
-Preview of the home page after successfully logging in. (Progress update as of June 22, 2026)
-![image](public/home-page-logged-in.png)
-
-When the user successfully logs in with the correct credentials, a toast notification will pop up on the screen.
-![image](public/login-toast.png)
-
-Progress update of the fund transfer page, which dynamically populates transaction history received from the backend API (As of June 24, 2026).
-![image](public/transferPageProgressJune24.png)
-
-Progress update of successful fund transfer to a valid destination account (As of June 27, 2026).
-![image](public/transferAndUpdateHistory.png)
-
-Postman successful response to GET request searching for an account by its account number.
-![image](public/searchAccountByNum.png)
-
-Postman successful response to GET request retrieving only withdrawals.
-![image](public/filterTransactionByType.png)
 
 ## Building
 
