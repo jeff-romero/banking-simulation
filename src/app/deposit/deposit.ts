@@ -12,17 +12,14 @@ import { TransferService } from '../services/transfer-service';
   styleUrl: './deposit.css',
 })
 export class Deposit implements OnInit {
-  @Output() amountLabel!: string;
-  @Output() amountPlaceholder!: string;
+  @Output() amountLabel: string = 'Amount';
+  @Output() amountPlaceholder: string = 'Amount to deposit';
   depositForm!: FormGroup;
   attemptedDeposit: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private transferService: TransferService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
-    this.amountLabel = 'Amount';
-    this.amountPlaceholder = 'Amount';
-
     this.depositForm = this.formBuilder.group({
       amount: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]]
     });

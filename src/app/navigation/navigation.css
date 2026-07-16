@@ -49,12 +49,12 @@ a {
 
 #navbar {
     gap: 1vw;
-    background-color: var(--urban-steel);
+    background-color: light-dark(var(--urban-steel), var(--urban-steel));
     /* padding: 1vw; */
 }
 
 .dropdown-title {
-    color: white;
+    color: light-dark(white, white);
     cursor: pointer;
     border: none;
     background: none;
