@@ -39,7 +39,7 @@ body {
     flex-direction: column;
     align-content: center;
     height: 100%;
-    background-color: oklch(76.227% 0.08874 265.686);
+    background-color: light-dark(white, oklch(28.606% 0.00145 16.005));
     /* background-image: linear-gradient(to bottom, var(--creamy), var(--glacier-blue)); */
     width: 100%;
 }
@@ -61,6 +61,15 @@ body {
     /* padding: 1vw; */
     padding-block: 1vw;
     background-color: oklch(69.137% 0.14686 247.021);
+}
+
+.root-content {
+    display: flex;
+    flex-direction: column;
+    background-color: oklch(51.431% 0.14417 250.924);
+    height: 100%;
+    /* padding: 2vw; */
+    /* align-items: center; */
 }
 
 /* @media screen and (max-width: 899px) {

@@ -10,7 +10,7 @@ h2 {
     gap: 0.5vw;
     width: 100%;
     overflow: auto;
-    border-radius: 1.5vw;
+    /* border-radius: 1.5vw; */
 }
 
 @media screen and (max-width: 899px) {

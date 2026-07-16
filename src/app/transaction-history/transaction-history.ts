@@ -24,9 +24,10 @@ export class TransactionHistory implements OnInit {
   typeSortedBy: string = this.UNSORTED;
   dateSortedBy: string = this.UNSORTED;
 
-  @Input() type?:string;
+  @Input() type!:string;
 
   constructor(protected transferService: TransferService, private accountService: AccountService) {
+    // TODO: test moving to oninit
     if (!this.accountService.isAuthenticated()) {
       return;
     }

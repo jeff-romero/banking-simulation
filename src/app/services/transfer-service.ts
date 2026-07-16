@@ -23,15 +23,9 @@ export class TransferService implements OnInit {
     if (!this.accountService.isAuthenticated()) {
       return;
     }
-
-    this.updateCheckingBalance();
-    this.updateTransactions(this.type);
   }
 
-  ngOnInit(): void {
-    this.updateCheckingBalance();
-    this.updateTransactions(this.type);
-  }
+  ngOnInit(): void {}
 
   updateCheckingBalance() {
     this.getCheckingBalance().subscribe({
@@ -50,6 +44,7 @@ export class TransferService implements OnInit {
     this.getTransactions(type).subscribe({
       next: (transactions: Transaction[]) => {
         // update internal transactions array with account transactions from the database
+        console.log(transactions);
         this.transactions = transactions;
         this.transactionsSubject.next(this.transactions);
       },
@@ -75,9 +70,10 @@ export class TransferService implements OnInit {
   getTransactions(type?: string): Observable<Transaction[]> {
     // get transactions by type
     if (type && type.length > 0) {
+      console.log('type defined: ' + type);
       return this.getTransactionsByType(type);
     }
-
+    console.log('type not defined: ' + type);
     // get all transactions
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.accountNumber);
   }
