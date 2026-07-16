@@ -30,7 +30,7 @@ export class TransferService implements OnInit {
   updateCheckingBalance() {
     this.getCheckingBalance().subscribe({
       next: (checkingBalance: number) => {
-        console.log(`Retrieved checking balance: ${checkingBalance}`);
+        // console.log(`Retrieved checking balance: ${checkingBalance}`);
         this.checkingBalance = checkingBalance;
         this.checkingBalanceSubject.next(checkingBalance);
       },
@@ -44,7 +44,6 @@ export class TransferService implements OnInit {
     this.getTransactions(type).subscribe({
       next: (transactions: Transaction[]) => {
         // update internal transactions array with account transactions from the database
-        console.log(transactions);
         this.transactions = transactions;
         this.transactionsSubject.next(this.transactions);
       },
@@ -70,10 +69,9 @@ export class TransferService implements OnInit {
   getTransactions(type?: string): Observable<Transaction[]> {
     // get transactions by type
     if (type && type.length > 0) {
-      console.log('type defined: ' + type);
       return this.getTransactionsByType(type);
     }
-    console.log('type not defined: ' + type);
+
     // get all transactions
     return this.http.get<Transaction[]>(TRANSACTION_HISTORY_URL + this.accountNumber);
   }

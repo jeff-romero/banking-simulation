@@ -5,7 +5,7 @@ h2 {
 .widget {
     display: flex;
     flex-direction: column;
-    background-color: oklch(77.821% 0.01139 16.975);
+    background-color: var(--creamy);
     padding: 1vw;
     gap: 0.5vw;
     width: 100%;

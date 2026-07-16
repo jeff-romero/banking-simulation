@@ -22,7 +22,7 @@ export class TransactionHistory implements OnInit {
   dstAccountNumSortedBy: string = this.UNSORTED;
   amountSortedBy: string = this.UNSORTED;
   typeSortedBy: string = this.UNSORTED;
-  dateSortedBy: string = this.UNSORTED;
+  dateSortedBy: string = this.ASCENDING;
 
   @Input() type!:string;
 

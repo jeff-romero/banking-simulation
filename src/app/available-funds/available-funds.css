@@ -5,7 +5,7 @@ hr {
 
 .availableFunds {
     display: flex;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--creamy);
     justify-content: space-between;
     gap: 10vw;
     padding: 1vw;
