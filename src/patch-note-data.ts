@@ -1,5 +1,11 @@
 export const patchNotes: any[] = [
   {
+    date: 'July 15, 2026',
+    newFeatures: [
+      'Widgets are now an Angular component instead of hard-coded HTML and CSS.'
+    ]
+  },
+  {
     date: 'July 11, 2026',
     newFeatures: [
       'Withdraw Funds page is complete! Logged in users can withdraw money from their checking account.',
@@ -8,6 +14,18 @@ export const patchNotes: any[] = [
     bugFixes: [
       'Checking balance is automatically updated after successful a deposit is made. It is no longer required to refresh the page to get the updated balance.',
       'Transaction type for withdrawals have been changed to reflect its type accurately.'
+    ]
+  },
+  {
+    date: 'July 9, 2026',
+    newFeatures: [
+      'Implemented the withdrawal POST API endpoint.'
+    ]
+  },
+  {
+    date: 'July 6, 2026',
+    bugFixes: [
+      'Transaction history GET API method now has the appropriate transaction type parameters.'
     ]
   },
   {
