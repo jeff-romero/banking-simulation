@@ -123,17 +123,13 @@ app.post("/api/transfer", (req, res) => {
   let found = srcAccount.transactions.find((transaction: Transaction) => transaction.dstAccountNum == dstAccountNum && transaction.amount == amount && transaction.date == date);
 
   if (found) {
-    if (dstAccount !== srcAccount) {
+    if (dstAccount !== srcAccount || type == 'Withdrawal') {
       srcAccount.checkingBalance -= amount;
       // console.log(`new balance of src acc: ${srcAccount.checkingBalance}`)
     }
 
     if (type == 'Transfer' || type == 'Deposit') {
       dstAccount.checkingBalance += amount;
-    }
-
-    if (type == 'Withdrawal') {
-      dstAccount.checkingBalance -= amount;
     }
 
     // console.log(`new balance of dst acc: ${dstAccount.checkingBalance}`);

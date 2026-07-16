@@ -1,38 +1,5 @@
-<div class="widget-collection">
-    <div class="widget">
-        <h4>What's New</h4>
-        <hr>
-        <ul>
-            <li>
-                Completed fund transfer functions and live updates of the transaction history. (June 27, 2026)
-            </li>
-            <li>
-                Implemented transaction history sorting functions. (June 27, 2026)
-            </li>
-            <li>
-                Separated the Angular frontend and the REST API backend. (June 22, 2026)
-            </li>
-            <li>
-                Migrated from server-side rendering (SSR) to client-side rendering (CSR). (June 22, 2026)
-            </li>
-            <li>
-                Added widgets! (June 19, 2026)
-            </li>
-        </ul>
-    </div>
-    <div class="widget">
-        <h4>Bug Fixes</h4>
-        <hr>
-        <ul>
-            <li>
-                Solved TypeScript/ESM module resolution issues while coding the backend. (June 22, 2026)
-            </li>
-            <li>
-                Debugged a server-side rendering (SSR) middleware issue that would intercept API requests before arriving at Express routes. (June 21, 2026)
-            </li>
-            <li>
-                Fixed hashing authentication errors on user login. (June 20, 2026)
-            </li>
-        </ul>
-    </div>
+<div class="homeWrapper">
+  @for (patchNotes of (widgetService.patchNotesSubject | async); track $index) {
+    <widget [date]=patchNotes.date [newFeatures]=patchNotes.newFeatures [bugFixes]=patchNotes.bugFixes></widget>
+  }
 </div>

@@ -39,7 +39,8 @@ body {
     flex-direction: column;
     align-content: center;
     height: 100%;
-    background-image: linear-gradient(to bottom, var(--creamy), var(--glacier-blue));
+    background-color: oklch(76.227% 0.08874 265.686);
+    /* background-image: linear-gradient(to bottom, var(--creamy), var(--glacier-blue)); */
     width: 100%;
 }
 
@@ -56,7 +57,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: fit-content;
+    height: 100%;
     /* padding: 1vw; */
     padding-block: 1vw;
     background-color: oklch(69.137% 0.14686 247.021);
