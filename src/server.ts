@@ -109,8 +109,16 @@ app.get("/api/transaction-history/:accountNum", (req, res) => {
 // filter transaction history by type (transfer, withdrawal, deposit)
 app.post("/api/transaction-history/:accountNum/filter", (req, res) => {
   let {type} = req.body;
-  if (type != 'Withdrawal' || type != 'Deposit' || type != 'Transfer') {
-    res.status(400).send(`Could not filter transaction history by type! Invalid filter type (${type}).`);
+  switch (type) {
+    case 'Withdrawal':
+      break;
+    case 'Deposit':
+      break;
+    case 'Transfer':
+      break;
+    default:
+      res.status(400).send(`Could not filter transaction history by type! Invalid filter type (${type}).`);
+      break;
   }
 
   let searchTerm = req.params.accountNum;
