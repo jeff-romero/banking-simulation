@@ -3,31 +3,31 @@
         <th>
             <div class="thGroup">
                 <span>From</span>
-                <i [class]="srcAccountNumSortedBy" (click)="sortSrcAccountNum()"></i>
+                <i [class]=transferService.srcAccountNumSortedBy (click)=transferService.sortSrcAccountNum()></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>To</span>
-                <i [class]="dstAccountNumSortedBy" (click)="sortDstAccountNum()"></i>
+                <i [class]=transferService.dstAccountNumSortedBy (click)=transferService.sortDstAccountNum()></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Amount</span>
-                <i [class]="amountSortedBy" (click)="sortAmount()"></i>
+                <i [class]=transferService.amountSortedBy (click)=transferService.sortAmount()></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Type</span>
-                <i [class]="typeSortedBy" (click)="sortType()"></i>
+                <i [class]=transferService.typeSortedBy (click)=transferService.sortType()></i>
             </div>
         </th>
         <th>
             <div class="thGroup">
                 <span>Date</span>
-                <i [class]="dateSortedBy" (click)="sortDate()"></i>
+                <i [class]=transferService.dateSortedBy (click)=transferService.sortDate()></i>
             </div>
         </th>
     </tr>
