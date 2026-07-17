@@ -27,6 +27,47 @@ export class TransferService implements OnInit {
 
   ngOnInit(): void {}
 
+  swap(arr: Transaction[], i: number, j: number): void {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+
+  partitionDateDescending(arr: Transaction[], left: number, right: number) {
+    let pivot = arr[right];
+
+    let i = left - 1;
+
+    for (let j = left; j <= right - 1; j++) {
+      if (Date.parse(arr[j].date) > Date.parse(pivot.date)) {
+        i++;
+        this.swap(arr, i, j);
+      }
+    }
+
+    this.swap(arr, i + 1, right);
+    return i + 1;
+  }
+
+  quicksort(arr: Transaction[], left: number, right: number) {
+    if (left < right) {
+      let pivotIndex = 0;
+
+      pivotIndex = this.partitionDateDescending(arr, left, right);
+
+      this.quicksort(arr, left, pivotIndex - 1);
+      this.quicksort(arr, pivotIndex + 1, right);
+    }
+  }
+
+  sortDate(): void {
+    if (!this.transactions || this.transactions.length == 0) {
+      return;
+    }
+
+    this.quicksort(this.transactions, 0, this.transactions.length - 1);
+  }
+
   updateCheckingBalance() {
     this.getCheckingBalance().subscribe({
       next: (checkingBalance: number) => {
@@ -45,6 +86,7 @@ export class TransferService implements OnInit {
       next: (transactions: Transaction[]) => {
         // update internal transactions array with account transactions from the database
         this.transactions = transactions;
+        this.sortDate();
         this.transactionsSubject.next(this.transactions);
       },
       error: (errorResponse: any) => {
@@ -91,6 +133,7 @@ export class TransferService implements OnInit {
           if (this.transactions) {
             this.transactions.push(transaction);
             // store updated transactions in transactionsSubject
+            this.sortDate();
             this.transactionsSubject.next(this.transactions);
             this.toastrService.success(`Sent $${transaction.amount} to ${transaction.dstAccountNum}`, 'Transfer Successful');
             this.updateCheckingBalance();

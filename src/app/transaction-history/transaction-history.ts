@@ -22,7 +22,7 @@ export class TransactionHistory implements OnInit {
   dstAccountNumSortedBy: string = this.UNSORTED;
   amountSortedBy: string = this.UNSORTED;
   typeSortedBy: string = this.UNSORTED;
-  dateSortedBy: string = this.ASCENDING;
+  dateSortedBy: string = this.DESCENDING;
 
   @Input() type!:string;
 
@@ -35,6 +35,14 @@ export class TransactionHistory implements OnInit {
 
   ngOnInit(): void {
     this.transferService.updateTransactions(this.type);
+    this.transferService.transactionsSubject.subscribe({
+      next: (transactions: Transaction[]) => {
+        this.dateSortedBy = this.DESCENDING;
+      },
+      error: (errorResponse: any) => {
+
+      }
+    });
   }
 
   swap(arr: Transaction[], i: number, j: number): void {
@@ -369,16 +377,17 @@ export class TransactionHistory implements OnInit {
 
   sortDate(): void {
     if (!this.transferService.transactions || this.transferService.transactions.length == 0) {
+      console.log('cant sort');
       return;
     }
 
-    if (this.dateSortedBy == this.ASCENDING) {
-      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'date', 'descending');
-      this.dateSortedBy = this.DESCENDING;
-    }
-    else {
+    if (this.dateSortedBy == this.DESCENDING) {
       this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'date', 'ascending');
       this.dateSortedBy = this.ASCENDING;
+    }
+    else {
+      this.quicksort(this.transferService.transactions, 0, this.transferService.transactions.length - 1, 'date', 'descending');
+      this.dateSortedBy = this.DESCENDING;
     }
 
     if (this.srcAccountNumSortedBy != this.UNSORTED) {

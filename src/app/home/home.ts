@@ -17,7 +17,7 @@ export class Home {
 
     this.accountService.accountObservable.subscribe({
       next: () => {
-        this.transferService.updateTransactions();
+        // this.transferService.updateTransactions();
       },
       error: (errorResponse: any) => {
         console.log(errorResponse);

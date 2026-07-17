@@ -1,4 +1,4 @@
-<div class="componentWrapper" [formGroup]="withdrawalForm">
+<div class="withdraw" [formGroup]="withdrawalForm">
   <text-input [label]="amountLabel" [placeholder]="amountPlaceholder" type="amount" [control]="formControl['amount']" [showErrors]="attemptedWithdrawal"></text-input>
   <button type="withdraw" (click)="withdraw()">Withdraw</button>
 </div>

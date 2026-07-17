@@ -3,8 +3,5 @@
     gap: 1vw;
     justify-content: space-between;
     align-items: center;
-}
-
-button {
-    height: fit-content;
+    height: 5vw;
 }
