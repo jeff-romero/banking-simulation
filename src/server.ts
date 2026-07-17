@@ -15,22 +15,26 @@ app.use(cors({
 
 // get all accounts
 app.get("/api/accounts", (req, res) => {
-  res.send(sampleAccounts);
+  if (sampleAccounts) {
+    res.send(sampleAccounts);
+  }
+  else {
+    res.status(400).send('Could not retrieve all accounts!');
+  }
 });
 
 // login
 app.post("/api/users/login", (req, res) => {
   // destructure the request body
-  const {email, password} = req.body;
-  // console.log(req.body);
+  let {email, password} = req.body;
 
-  const account = sampleAccounts.find(account => account.email === email && account.password === password);
+  let account = sampleAccounts.find(account => account.email === email && account.password === password);
 
   if (account) {
     res.send(generateTokenResponse(account));
   }
   else {
-    res.status(400).send("Account name or password is not valid!");
+    res.status(400).send("Account name or password is invalid!");
   }
 });
 
@@ -46,48 +50,80 @@ app.delete("/api/accounts/:accountNum", (req, res) => {
 
 // get account
 app.get("/api/accounts/:accountNum", (req, res) => {
-  let searchTerm = req.params.accountNum;
-  const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
+  let accountNum = req.params.accountNum;
+  let account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
 
-  res.send(account);
+  if (account) {
+    res.send(account);
+  }
+  else {
+    res.status(400).send(`Could not retrieve the account ${accountNum}!`);
+  }
 });
 
 // get checking balance
 app.get("/api/checking/:accountNum", (req, res) => {
   let accountNum = req.params.accountNum;
-  const account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
+  let account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
 
-  res.send(account.checkingBalance);
+  if (account) {
+    res.send(account.checkingBalance);
+  }
+  else {
+    res.status(400).send(`Could not retrieve the checking balance of the account ${accountNum}!`);
+  }
 });
 
 // get savings balance
 app.get("/api/savings/:accountNum", (req, res) => {
   let accountNum = req.params.accountNum;
-  const account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
+  let account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
 
-  res.send(account.savingsBalance);
+  if (account) {
+    res.send(account.savingsBalance);
+  }
+  else {
+    res.status(400).send(`Could not retrieve the savings balance of the account ${accountNum}!`);
+  }
 });
 
 // get transaction history
-// account may have no transactions on record, so response may be undefined as intended
+// account may have no transactions on record, so response may be an empty list
 app.get("/api/transaction-history/:accountNum", (req, res) => {
-  let searchTerm = req.params.accountNum;
-  const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
+  let accountNum = req.params.accountNum;
+  let account = sampleAccounts.find(account => account.accountNumber === parseInt(accountNum));
 
-  res.send(account.transactions);
+  if (account) {
+    if (account.transactions) {
+      res.send(account.transactions);
+    }
+    else {
+      res.send([]);
+    }
+  }
+  else {
+    res.status(400).send(`Could not retrieve the transaction history of the account ${accountNum}!`);
+  }
 });
 
 // filter transaction history by type (transfer, withdrawal, deposit)
 app.post("/api/transaction-history/:accountNum/filter", (req, res) => {
   let {type} = req.body;
+  if (type != 'Withdrawal' || type != 'Deposit' || type != 'Transfer') {
+    res.status(400).send(`Could not filter transaction history by type! Invalid filter type (${type}).`);
+  }
+
   let searchTerm = req.params.accountNum;
-  const account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
+  let account = sampleAccounts.find(account => account.accountNumber === parseInt(searchTerm));
+  if (!account) {
+    res.status(400).send(`Could not filter transaction history by type! The account (${searchTerm}) does not exist.`);
+  }
 
   if (account.transactions) {
     res.send(account.transactions.filter((transaction: Transaction) => transaction.type === type));
   }
   else {
-    res.status(400).send("Invalid transaction filter type!");
+    res.send([]);
   }
 });
 
@@ -95,8 +131,16 @@ app.post("/api/transaction-history/:accountNum/filter", (req, res) => {
 app.post("/api/transfer", (req, res) => {
   let { srcAccountNum, dstAccountNum, amount, type, date } = req.body;
   // console.log(`${srcAccountNum} sending $${amount} to ${dstAccountNum}`);
+
   let srcAccount = sampleAccounts.find(account => account.accountNumber == srcAccountNum);
+  if (!srcAccount) {
+    res.status(400).send(`Could not process the transaction! The source account number is invalid (${srcAccountNum}).`);
+  }
+
   let dstAccount = sampleAccounts.find(account => account.accountNumber == dstAccountNum);
+  if (!dstAccount) {
+    res.status(400).send(`Could not process the transaction! The destination account number is invalid (${dstAccountNum}).`);
+  }
 
   if (!srcAccount.transactions) {
     srcAccount.transactions = [];
@@ -146,6 +190,10 @@ app.post("/api/withdraw", (req, res) => {
   let { srcAccountNum, dstAccountNum, amount, type, date } = req.body;
   // console.log(`${srcAccountNum} sending $${amount} to ${dstAccountNum}`);
   let srcAccount = sampleAccounts.find(account => account.accountNumber == srcAccountNum);
+
+  if (!srcAccount) {
+    res.status(400).send(`Could not process the transaction! The source account number is invalid (${srcAccountNum}).`);
+  }
 
   if (!srcAccount.transactions) {
     srcAccount.transactions = [];
